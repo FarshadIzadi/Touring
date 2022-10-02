@@ -1,0 +1,97 @@
+﻿@page
+@model Touring.Pages.Admin.Tours.CreateModel
+
+<div class="container row">
+    <h1 class="text-center text-white light-ground"> Add Details to the Tour</h1>
+    <div class="mx-auto col-12 row light-ground">
+        <div class="col-8">
+            <div class="card border-secondary mb-2" style="border-radius:5px;">
+                <h3 class="card-header">Create a New Tour</h3>
+                <div class="card-body">
+                    <div class="card-text">
+                        <form method="post">
+                            <div asp-validation-summary="ModelOnly"></div>
+                            <div class="row col-12 py-2">
+                                <div class="col-4">
+                                    <label asp-for="TourHeaderObj.TourTitle" class="form-label"></label>
+                                </div>
+                                <div class="col-8">
+                                    <input asp-for="TourHeaderObj.TourTitle" class="form-control" />
+                                    <span asp-validation-for="TourHeaderObj.TourTitle" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row col-12 py-2">
+                                <div class="col-4">
+                                    <label asp-for="TourHeaderObj.TourCapacity" class="form-label"></label>
+                                </div>
+                                <div class="col-8">
+                                    <input asp-for="TourHeaderObj.TourCapacity" class="form-control" />
+                                    <span asp-validation-for="TourHeaderObj.TourCapacity" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row col-12 py-2">
+                                <div class="col-4">
+                                    <label asp-for="TourHeaderObj.OriginCountry" class="form-label"></label>
+                                </div>
+                                <div class="col-8">
+                                    <input asp-for="TourHeaderObj.OriginCountry" class="form-control" />
+                                    <span asp-validation-for="TourHeaderObj.OriginCountry" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row col-12 py-2">
+                                <div class="col-4">
+                                    <label asp-for="TourHeaderObj.OriginCity" class="form-label"></label>
+                                </div>
+                                <div class="col-8">
+                                    <input asp-for="TourHeaderObj.OriginCity" class="form-control" />
+                                    <span asp-validation-for="TourHeaderObj.OriginCity" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row col-12 py-2">
+                                <div class="col-4">
+                                    <label asp-for="TourHeaderObj.DestinationCountries" class="form-label"></label>
+                                </div>
+                                <div class="col-8">
+                                    <input asp-for="TourHeaderObj.DestinationCountries" class="form-control" />
+                                    <span asp-validation-for="TourHeaderObj.DestinationCountries" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row col-12 py-2">
+                                <div class="col-4">
+                                    <label asp-for="TourHeaderObj.DestinationCities" class="form-label"></label>
+                                </div>
+                                <div class="col-8">
+                                    <input asp-for="TourHeaderObj.DestinationCities" class="form-control" />
+                                    <span asp-validation-for="TourHeaderObj.DestinationCities" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row col-12 py-2">
+                                <div class="col-4">
+                                    <label asp-for="TourHeaderObj.Description" class="form-label"></label>
+                                </div>
+                                <div class="col-8">
+                                    <textarea asp-for="TourHeaderObj.Description" class="form-control" style="height:100px;"></textarea>
+                                    <span asp-validation-for="TourHeaderObj.Description" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row col-12 py-2">
+                                <div class="offset-4 col-8">
+                                    <input type="submit" class="btn btn-primary form-control" value="Save and Continue" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+
+        </div>
+    </div>
+
+</div>
+
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
