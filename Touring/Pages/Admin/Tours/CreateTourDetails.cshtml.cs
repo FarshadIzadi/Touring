@@ -40,7 +40,7 @@ namespace Touring.Pages.Admin.Tours
                 TourDetail = new TourDetails()
             };
 
-            TourGuids = _unitOfWork.ApplicationUser.GetUsersForDropDown(_userManager,_roleManager,SD.RoleTourGuide);
+            TourGuids = _unitOfWork.ApplicationUser.GetUsersForDropDown(_userManager,_roleManager,SD.RoleManager);
 
         }
 

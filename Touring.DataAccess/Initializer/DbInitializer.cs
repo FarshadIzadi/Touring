@@ -36,6 +36,7 @@ namespace Touring.DataAccess.Initializer
             }
 
             if (_roleManager.RoleExistsAsync(SD.RoleManager).GetAwaiter().GetResult()) return;
+
             _roleManager.CreateAsync(new ApplicationRoles(SD.RoleManager)).GetAwaiter().GetResult();
             _roleManager.CreateAsync(new ApplicationRoles(SD.RoleTourGuide)).GetAwaiter().GetResult();
             _roleManager.CreateAsync(new ApplicationRoles(SD.RoleFrontdesk)).GetAwaiter().GetResult();

@@ -11,8 +11,8 @@ namespace Touring.DataAccess
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser,ApplicationRoles,string,IdentityUserClaim<string>,ApplicationUserRole,IdentityUserLogin<string>,IdentityRoleClaim<string>,IdentityUserToken<string>>
     {
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
-        public DbSet<ApplicationUserRole> ApplicationUserRole { get; set; }
         public DbSet<ApplicationRoles> ApplicationRoles { get; set; }
+        public DbSet<ApplicationUserRole> ApplicationUserRole { get; set; }
         public DbSet<Accommodation> Accommodation { get; set; }
         public DbSet<Activity> Activity { get; set; }
         public DbSet<Trip> Trip { get; set; }

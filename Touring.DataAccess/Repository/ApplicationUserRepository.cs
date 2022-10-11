@@ -21,7 +21,7 @@ namespace Touring.DataAccess.Repository
             _context = context;
         }
 
-        public IEnumerable<SelectListItem> GetUsersForDropDown(UserManager<ApplicationUser> userManager,RoleManager<ApplicationRoles> rolemanager,string userRole)
+        public IEnumerable<SelectListItem> GetUsersForDropDown(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRoles> rolemanager, string userRole)
         {
 
             string roleId = rolemanager.Roles.FirstOrDefault(x => x.Name == userRole).Id;
@@ -32,10 +32,14 @@ namespace Touring.DataAccess.Repository
 
             usersByRole = usersByRole.Where(x => x.role == roleId);
 
-            return usersByRole.Select(x => new SelectListItem { 
-                Value= x.user.Id,
+
+
+            return usersByRole.Select(x => new SelectListItem {
+                Value = x.user.Id,
                 Text = x.user.FullName
             });
         }
+
+
     }
 }
