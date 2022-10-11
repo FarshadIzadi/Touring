@@ -11,6 +11,6 @@ namespace Touring.DataAccess.Repository.IRepository
 {
     public interface IApplicationUserRepository : IRepository<ApplicationUser>
     {
-        IEnumerable<SelectListItem> GetUsersForDropDown(string userRole);
+        IEnumerable<SelectListItem> GetUsersForDropDown(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRoles> rolemanager, string userRole);
     }
 }

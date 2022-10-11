@@ -18,11 +18,12 @@ namespace Touring.Pages.Admin.Tours
     public class CreateTourDetailsModel : PageModel
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly UserManager<IdentityUser> _userManager;
-
-        public CreateTourDetailsModel(IUnitOfWork unitOfWork, UserManager<IdentityUser> userManager)
+        private readonly RoleManager<ApplicationRoles> _roleManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        public CreateTourDetailsModel(IUnitOfWork unitOfWork, RoleManager<ApplicationRoles> roleManager, UserManager<ApplicationUser> userManager)
         {
             _unitOfWork = unitOfWork;
+            _roleManager = roleManager;
             _userManager = userManager;
         }
 
@@ -39,7 +40,7 @@ namespace Touring.Pages.Admin.Tours
                 TourDetail = new TourDetails()
             };
 
-            TourGuids = _unitOfWork.ApplicationUser.GetUsersForDropDown(SD.RoleManager);
+            TourGuids = _unitOfWork.ApplicationUser.GetUsersForDropDown(_userManager,_roleManager,SD.RoleTourGuide);
 
         }
 

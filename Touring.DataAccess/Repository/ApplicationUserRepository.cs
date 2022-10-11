@@ -14,24 +14,28 @@ namespace Touring.DataAccess.Repository
 {
     public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicationUserRepository
     {
+
         private readonly ApplicationDbContext _context;
         public ApplicationUserRepository(ApplicationDbContext context) : base(context)
         {
             _context = context;
         }
 
-        public IEnumerable<SelectListItem> GetUsersForDropDown(string userRole)
+        public IEnumerable<SelectListItem> GetUsersForDropDown(UserManager<ApplicationUser> userManager,RoleManager<ApplicationRoles> rolemanager,string userRole)
         {
-            //var allUsers = userManager.Users.Include(u => u.ApplicationUserRoles).ThenInclude(r => r.Role);
 
-            //var usersInRole = allUsers.Where(x => x.ApplicationUserRoles.Any(r => r.Role.Name == userRole));
-            //return usersInRole.Select(x => new SelectListItem
-            //{
-            //    Value = x.Id,
-            //    Text = x.FullName
-            //});
+            string roleId = rolemanager.Roles.FirstOrDefault(x => x.Name == userRole).Id;
 
-            return null;
+            var usersByRole = from ur in _context.ApplicationUserRole
+                              join u in userManager.Users on ur.UserId equals u.Id
+                              select new { role = ur.RoleId, user = u };
+
+            usersByRole = usersByRole.Where(x => x.role == roleId);
+
+            return usersByRole.Select(x => new SelectListItem { 
+                Value= x.user.Id,
+                Text = x.user.FullName
+            });
         }
     }
 }
