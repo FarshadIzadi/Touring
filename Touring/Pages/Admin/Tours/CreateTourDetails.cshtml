@@ -6,6 +6,8 @@
     <h1 class="text-center text-white light-ground"> Add Details to the Tour</h1>
 
     <div class="mx-auto col-12 row light-ground">
+
+        @*left panel*@
         <div class="col-8">
             <div class="card border-secondary mb-2" style="border-radius:5px;">
                 <div class="card-header bg-secondary">
@@ -136,7 +138,7 @@
                                 <label asp-for="createTourObj.TourDetail.Recommendations" class="form-label"></label>
                             </div>
                             <div class="col-8">
-                                <textarea asp-for="createTourObj.TourDetail.Recommendations" class="form-control" ></textarea>
+                                <textarea asp-for="createTourObj.TourDetail.Recommendations" class="form-control"></textarea>
                             </div>
                         </div>
 
@@ -152,59 +154,69 @@
                 </div>
             </div>
         </div>
+
+        @*right panel*@
         <div class="col-4 row">
-            <h3 class="col-12 text-center my-0 py-0">@Model.createTourObj.TourHeader.TourTitle</h3>
-            <h3 style="position:relative;border-bottom:1px solid #00ffff;" class="col-12 text-center">Id: @Model.createTourObj.TourHeader.Id</h3>
-            <div class="col-12 d-flex justify-content-between">
-                <span>Capacity</span>
-                <span>@Model.createTourObj.TourHeader.TourCapacity</span>
-            </div>
-            <div class="col-12 d-flex justify-content-between">
-                <span>From:</span>
-                <span>@Model.createTourObj.TourHeader.OriginCity, (@Model.createTourObj.TourHeader.OriginCountry) </span>
-            </div>
-            <div class="col-12 d-flex justify-content-between">
-                <span>To:</span>
-                <span>@Model.createTourObj.TourHeader.DestinationCities, (@Model.createTourObj.TourHeader.DestinationCountries) </span>
-            </div>
-            <table class="table-striped table-responsive table-bordered">
-                <thead>
-                    <tr>
-                        <th class="text-center">Tour Plan</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.createTourObj.TourDetails)
+            <div class="card border-secondary">
+                <div class="card-header bg-secondary">
+                    <h3 class="col-12 text-center my-0 py-0">@Model.createTourObj.TourHeader.TourTitle</h3>
+                    <h3 style="position:relative;border-bottom:1px solid #00ffff;" class="col-12 text-center">Id: @Model.createTourObj.TourHeader.Id</h3>
+
+                </div>
+                <div class="card-body">
+                    <div class="col-12">
+                        <span>Capacity</span>
+                        <span>@Model.createTourObj.TourHeader.TourCapacity</span>
+                    </div>
+                    <div class="col-12 d-flex justify-content-between">
+                        <span>From:</span>
+                        <span>@Model.createTourObj.TourHeader.OriginCity, (@Model.createTourObj.TourHeader.OriginCountry) </span>
+                    </div>
+                    <div class="col-12 d-flex justify-content-between">
+                        <span>To:</span>
+                        <span>@Model.createTourObj.TourHeader.DestinationCities, (@Model.createTourObj.TourHeader.DestinationCountries) </span>
+                    </div>
+                    <table class="table-striped table-responsive table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Tour Plan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.createTourObj.TourDetails)
                     {
-                        <div class="col-12 d-flex justify-content-between">
-                            <span>@item.Title</span>
-                            @if (item.TripId != 0)
+                            <div class="col-12 d-flex justify-content-between">
+                                <span>@item.Title</span>
+                                @if (item.TripId != 0)
                             {
                                 <span>more of Trip</span>
                             }
-                            @if (item.AccommodationId != 0)
+                                @if (item.AccommodationId != 0)
                             {
                                 <span>more of Accomation</span>
                             }
-                            @if (item.ActivityId != 0)
+                                @if (item.ActivityId != 0)
                             {
                                 <span>more of activity</span>
                             }
-                        </div>
+                            </div>
                     }
-                </tbody>
-            </table>
+                        </tbody>
+                    </table>
 
-            <div class="d-flex justify-content-between bg-dark text-light">
-                <span>total:</span>
-                <span>@Model.createTourObj.TourHeader.CalculatedCosts.ToString("C")</span>
-            <div/>
+                    <div class="d-flex justify-content-between bg-dark text-light">
+                        <span>total:</span>
+                        <span>@Model.createTourObj.TourHeader.CalculatedCosts.ToString("C")</span>
+                        <div />
+                    </div>
+                </div>
+
+            </div>
         </div>
+
     </div>
 
-</div>
 
-
-@section Scripts{
-    <partial name="_ValidationScriptsPartial" />
-}
+    @section Scripts{
+        <partial name="_ValidationScriptsPartial" />
+    }

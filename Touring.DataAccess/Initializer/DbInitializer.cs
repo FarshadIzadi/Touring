@@ -13,11 +13,11 @@ namespace Touring.DataAccess.Initializer
     public class DbInitializer : IDbInitializer
     {
         private readonly ApplicationDbContext _db;
-        private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<ApplicationRoles> _roleManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         public DbInitializer(ApplicationDbContext db,
-                            RoleManager<IdentityRole> roleManager,
-                            UserManager<IdentityUser> userManager)
+                            RoleManager<ApplicationRoles> roleManager,
+                            UserManager<ApplicationUser> userManager)
         {
             _db = db;
             _roleManager = roleManager;
@@ -37,12 +37,12 @@ namespace Touring.DataAccess.Initializer
 
             if (_roleManager.RoleExistsAsync(SD.RoleManager).GetAwaiter().GetResult()) return;
 
-            _roleManager.CreateAsync(new IdentityRole(SD.RoleManager)).GetAwaiter().GetResult();
-            _roleManager.CreateAsync(new IdentityRole(SD.RoleTourGuide)).GetAwaiter().GetResult();
-            _roleManager.CreateAsync(new IdentityRole(SD.RoleFrontdesk)).GetAwaiter().GetResult();
-            _roleManager.CreateAsync(new IdentityRole(SD.RoleAccountant)).GetAwaiter().GetResult();
-            _roleManager.CreateAsync(new IdentityRole(SD.RoleUser)).GetAwaiter().GetResult();
-            _roleManager.CreateAsync(new IdentityRole(SD.RoleTourManager)).GetAwaiter().GetResult();
+            _roleManager.CreateAsync(new ApplicationRoles(SD.RoleManager)).GetAwaiter().GetResult();
+            _roleManager.CreateAsync(new ApplicationRoles(SD.RoleTourGuide)).GetAwaiter().GetResult();
+            _roleManager.CreateAsync(new ApplicationRoles(SD.RoleFrontdesk)).GetAwaiter().GetResult();
+            _roleManager.CreateAsync(new ApplicationRoles(SD.RoleAccountant)).GetAwaiter().GetResult();
+            _roleManager.CreateAsync(new ApplicationRoles(SD.RoleUser)).GetAwaiter().GetResult();
+            _roleManager.CreateAsync(new ApplicationRoles(SD.RoleTourManager)).GetAwaiter().GetResult();
 
             var user = new ApplicationUser {
                 Email = "admin@admin.com",

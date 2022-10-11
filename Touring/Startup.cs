@@ -36,7 +36,7 @@ namespace Touring
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            services.AddIdentity<ApplicationUser, ApplicationRoles>(options =>
                  {
                      options.Password.RequireDigit = false;
                      options.Password.RequireNonAlphanumeric = false;
