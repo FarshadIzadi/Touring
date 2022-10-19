@@ -17,29 +17,34 @@ function loadTable(tableId) {
     $(tableId).attr('border-radius', '5px');
 
     $.getJSON('/api/User', function (data) {
-        console.log(data.data[0]);
+        console.log(data.data);
         jsonString = data;
 
         $.each(data.data, function (index, element) {
             var $row = $('<tr/>');
             var $item = $('<td/>', {
-                html: element.fullName
+                html: element.users.fullName
+            });
+            $row.append($item);
+
+            var rolesStr = "";
+            $.each(element.userRoles, function (index, e) {
+                rolesStr += e + "</br>";
+            });
+            var $item = $('<td/>', {
+                html: rolesStr
             });
             $row.append($item);
 
             var $item = $('<td/>', {
-                html: "roels here"
-            });
-            $row.append($item);
-
-            var $item = $('<td/>', {
-                html: element.email
+                html: element.users.email
             });
             $row.append($item);
 
             $item = $('<td/>', {
                 html: function () {
-                    if (element.phoneNumber == null) { return "not registered"; } else { return element.phoneNumber; }}
+                    if (element.users.phoneNumber == null) { return "not registered"; } else { return element.users.phoneNumber; }
+                }
             });
             $row.append($item);
 

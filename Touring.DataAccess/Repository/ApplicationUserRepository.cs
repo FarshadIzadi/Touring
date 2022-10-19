@@ -40,12 +40,6 @@ namespace Touring.DataAccess.Repository
             });
         }
 
-        public IEnumerable<UserRoles> GetUsersWithRoles()
-        {
-            var users = from u in _context.ApplicationUser
-                        join ur in _context.ApplicationUserRole on u.Id equals ur.UserId into userroles
-                        select new UserRoles{user = u, Roles = userroles };
-            return users;
-        }
+
     }
 }
