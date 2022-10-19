@@ -11,7 +11,7 @@ namespace Touring.Models
     {
         public int Id { get; set; }
         public int TourHeaderId { get; set; }
-        [ForeignKey("TourId")]
+        [ForeignKey("TourHeaderId")]
         public virtual TourHeader TourHeader { get; set; }
 
         public string Title { get; set; }
@@ -23,7 +23,7 @@ namespace Touring.Models
         [NotMapped]
         public DateTime EndDate { get; set; }
 
-        public string? TourGuideId { get; set; }
+        public string TourGuideId { get; set; }
         [ForeignKey("TourGuideId")]
         public virtual ApplicationUser ApplicationUser { get; set; }
 

@@ -36,11 +36,11 @@ namespace Touring.Pages.Admin.Tours
             createTourObj = new CreateTourVM
             {
                 TourHeader = _unitOfWork.TourHeader.GetFirstOrDefault(x => x.Id == tourId),
-                TourDetails = _unitOfWork.TourDetails.GetAll(x => x.TourHeaderId == tourId).ToList(),
+                TourDetails = _unitOfWork.TourDetails.GetAll(x => x.TourHeaderId == tourId,includeProperties:"Activity,Accommodation,Trip").ToList(),
                 TourDetail = new TourDetails()
             };
 
-            TourGuids = _unitOfWork.ApplicationUser.GetUsersForDropDown(_userManager,_roleManager,SD.RoleManager);
+            TourGuids = _unitOfWork.ApplicationUser.GetUsersForDropDown(_userManager,_roleManager,SD.RoleTourGuide);
 
         }
 
@@ -48,6 +48,11 @@ namespace Touring.Pages.Admin.Tours
         {
             if (ModelState.IsValid)
             {
+                createTourObj.TourDetail.StartTime = Convert.ToDateTime(createTourObj.TourDetail.StartDate.ToShortDateString() 
+                                                                + " " + createTourObj.TourDetail.StartTime.ToShortTimeString());
+                createTourObj.TourDetail.EndTime = Convert.ToDateTime(createTourObj.TourDetail.EndDate.ToShortDateString() 
+                                                              + " " + createTourObj.TourDetail.EndTime.ToShortTimeString());
+                createTourObj.TourDetail.TourHeaderId = createTourObj.TourHeader.Id;
 
                 _unitOfWork.TourDetails.Add(createTourObj.TourDetail);
                 _unitOfWork.Save();
@@ -65,9 +70,26 @@ namespace Touring.Pages.Admin.Tours
             return RedirectToPage("CreateTourDetails", new { tourId = tourId });
         }
 
-        public void OnPostFinalize()
+        public IActionResult OnPostFinalize()
         {
+            if (ModelState.IsValid)
+            {
+                createTourObj.TourDetail.StartTime = Convert.ToDateTime(createTourObj.TourDetail.StartDate.ToShortDateString()
+                                                                + " " + createTourObj.TourDetail.StartTime.ToShortTimeString());
+                createTourObj.TourDetail.EndTime = Convert.ToDateTime(createTourObj.TourDetail.EndDate.ToShortDateString()
+                                                              + " " + createTourObj.TourDetail.EndTime.ToShortTimeString());
+                createTourObj.TourDetail.TourHeaderId = createTourObj.TourHeader.Id;
 
+                _unitOfWork.TourDetails.Add(createTourObj.TourDetail);
+                _unitOfWork.Save();
+            }
+            else
+            {
+                return Page();
+            }
+            var tourId = createTourObj.TourHeader.Id;
+
+            return RedirectToPage("FinalizeTour", new { tourId = tourId });
         }
 
     }
