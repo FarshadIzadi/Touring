@@ -13,7 +13,7 @@ namespace Touring.DataAccess.Repository
     public class AccommodationRepository : Repository<Accommodation>, IAccommodationRepository
     {
         private readonly ApplicationDbContext _context;
-        public AccommodationRepository(DbContext db, ApplicationDbContext context) : base(db)
+        public AccommodationRepository(ApplicationDbContext context) : base(context)
         {
             _context = context;
         }
@@ -22,7 +22,7 @@ namespace Touring.DataAccess.Repository
         {
             return _context.Accommodation.Select(x => new SelectListItem { 
                 Text = x.Name,
-                Value = x.Id
+                Value = Convert.ToString(x.Id)
             });
         }
     }

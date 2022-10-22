@@ -2,89 +2,41 @@
 @model Touring.Pages.Admin.Accommodation.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Accommodations List";
 }
 
-<h1>Index</h1>
+<div class="container row">
+    <div class="col-12 row">
+        <h2 class="col text-primary">Accommodations List:</h2>
+        <div class="col text-end"><a class="btn btn-primary" asp-page="Create">New Accommodation</a></div>
+    </div>
+    <div class="col-12">
+        <table id="dataTable" class="text-center table-striped table-responsive table border mx-1 mx-auto">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Location</th>
+                    <th>Contact Name</th>
+                    <th>Phone</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Accommodation[0].Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Accommodation[0].PhoneNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Accommodation[0].ContactName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Accommodation[0].Country)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Accommodation[0].City)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Accommodation[0].Address)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Accommodation[0].Stars)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Accommodation[0].RoomSize)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Accommodation[0].Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Accommodation[0].Description)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Accommodation) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ContactName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Country)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.City)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Stars)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoomSize)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+@section Scripts{
+    <script src="~/js/Accommodation.js"></script>
 }
-    </tbody>
-</table>
+
+
+
+
+@*
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+  *@

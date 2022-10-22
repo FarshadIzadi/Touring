@@ -11,7 +11,7 @@ namespace Touring.Models
     {
         public int Id { get; set; }
         
-        [Display(Name="Accommodation Titile")]
+        [Display(Name="Accommodation Title")]
         [Required(ErrorMessage = "Required Field")]
         public string Name { get; set; }
         

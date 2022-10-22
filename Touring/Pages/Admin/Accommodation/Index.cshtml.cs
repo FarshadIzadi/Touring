@@ -12,18 +12,11 @@ namespace Touring.Pages.Admin.Accommodation
 {
     public class IndexModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
 
-        public IndexModel(ApplicationDbContext context)
+
+        public IActionResult OnGet()
         {
-            _context = context;
-        }
-
-        public IList<Models.Accommodation> Accommodation { get;set; }
-
-        public async Task OnGetAsync()
-        {
-            Accommodation = await _context.Accommodation.ToListAsync();
+            return Page();
         }
     }
 }
