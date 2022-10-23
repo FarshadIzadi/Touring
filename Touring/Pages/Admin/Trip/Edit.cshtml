@@ -1,0 +1,80 @@
+﻿@page
+@model Touring.Pages.Admin.Trip.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Trip</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Trip.Id" />
+            <div class="form-group">
+                <label asp-for="Trip.Vehicle" class="control-label"></label>
+                <input asp-for="Trip.Vehicle" class="form-control" />
+                <span asp-validation-for="Trip.Vehicle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Trip.VehicleNumber" class="control-label"></label>
+                <input asp-for="Trip.VehicleNumber" class="form-control" />
+                <span asp-validation-for="Trip.VehicleNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Trip.OriginCountry" class="control-label"></label>
+                <input asp-for="Trip.OriginCountry" class="form-control" />
+                <span asp-validation-for="Trip.OriginCountry" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Trip.OriginCity" class="control-label"></label>
+                <input asp-for="Trip.OriginCity" class="form-control" />
+                <span asp-validation-for="Trip.OriginCity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Trip.DepartureTime" class="control-label"></label>
+                <input type="datetime" asp-for="Trip.DepartureTime" class="form-control" />
+                <span asp-validation-for="Trip.DepartureTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Trip.DestinationCountry" class="control-label"></label>
+                <input asp-for="Trip.DestinationCountry" class="form-control" />
+                <span asp-validation-for="Trip.DestinationCountry" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Trip.DestinationCity" class="control-label"></label>
+                <input asp-for="Trip.DestinationCity" class="form-control" />
+                <span asp-validation-for="Trip.DestinationCity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Trip.ArrivalTime" class="control-label"></label>
+                <input type="datetime" asp-for="Trip.ArrivalTime" class="form-control" />
+                <span asp-validation-for="Trip.ArrivalTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Trip.Price" class="control-label"></label>
+                <input asp-for="Trip.Price" class="form-control" />
+                <span asp-validation-for="Trip.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Trip.Recommendations" class="control-label"></label>
+                <input asp-for="Trip.Recommendations" class="form-control" />
+                <span asp-validation-for="Trip.Recommendations" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

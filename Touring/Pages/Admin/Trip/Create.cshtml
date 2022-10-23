@@ -1,0 +1,112 @@
+﻿@page
+@model Touring.Pages.Admin.Trip.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Trip</h4>
+<hr />
+<div class="row">
+    <div class="col-8">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Trip.Vehicle" class="control-label"></label>
+                <select id="vehicleSelect" asp-for="Trip.Vehicle" class="form-control">
+                    <option value="Plane">Plane</option>
+                    <option value="Bus">Bus</option>
+                    <option value="Train">Train</option>
+                    <option value="Ship">Ship</option>
+                    <option value="Ferry">Ferry</option>
+                    <option value="Boat">Boat</option>
+                    <option value="Crouse">Crouse</option>
+                </select>
+                <span asp-validation-for="Trip.Vehicle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Trip.VehicleNumber" class="control-label"></label>
+                <input asp-for="Trip.VehicleNumber" class="form-control" />
+                <span asp-validation-for="Trip.VehicleNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Trip.OriginCountry" class="control-label"></label>
+                <input asp-for="Trip.OriginCountry" class="form-control" />
+                <span asp-validation-for="Trip.OriginCountry" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Trip.OriginCity" class="control-label"></label>
+                <input asp-for="Trip.OriginCity" class="form-control" />
+                <span asp-validation-for="Trip.OriginCity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Trip.DepartureTime" class="control-label"></label>
+                <input asp-for="Trip.DepartureTime" class="form-control" />
+                <span asp-validation-for="Trip.DepartureTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Trip.DestinationCountry" class="control-label"></label>
+                <input asp-for="Trip.DestinationCountry" class="form-control" />
+                <span asp-validation-for="Trip.DestinationCountry" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Trip.DestinationCity" class="control-label"></label>
+                <input asp-for="Trip.DestinationCity" class="form-control" />
+                <span asp-validation-for="Trip.DestinationCity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Trip.ArrivalTime" class="control-label"></label>
+                <input asp-for="Trip.ArrivalTime" class="form-control" />
+                <span asp-validation-for="Trip.ArrivalTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Trip.Price" class="control-label"></label>
+                <input asp-for="Trip.Price" class="form-control" />
+                <span asp-validation-for="Trip.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Trip.Recommendations" class="control-label"></label>
+                <input asp-for="Trip.Recommendations" class="form-control" />
+                <span asp-validation-for="Trip.Recommendations" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script>
+
+        //change bus and flight number into only one field called unique identification number of the vehicle
+        //update the crud and database with the new field called  vehicle number 
+
+
+        $("#vehicleSelect").on('change', function (event) {
+            switch ($(this).children("option:selected").val()) {
+                case "Plane":
+                    alert("Plane selected");
+                    break;
+                case "Bus":
+                    alert("Bus selected");
+                    break;
+                case "Train":
+                    alert("Train selected");
+                    break;
+                default:
+                    break;
+            }
+
+            });
+    </script>
+
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

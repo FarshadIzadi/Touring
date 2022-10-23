@@ -17,8 +17,4 @@
     <ProjectReference Include="..\Touring.Utility\Touring.Utility.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>

@@ -15,21 +15,36 @@ namespace Touring.Models
         [Required]
         public string Vehicle { get; set; }
 
-        [Display(Name = "Flight Number")]
-        [Required]
-        public string FlightNumber { get; set; }
+        [Display(Name = "Vehicle Number/Name")]
+        public string VehicleNumber { get; set; }
 
-        [Display(Name = "Bus Number")]
+        [Display(Name = "Origin Country")]
         [Required]
-        public string BusNumber { get; set; }
+        public string OriginCountry { get; set; }
 
-        [Display(Name = "Origin")]
+        [Display(Name = "Origin City")]
         [Required]
-        public string Origin { get; set; }
+        public string OriginCity { get; set; }
 
-        [Display(Name = "Destination")]
+        [Display(Name = "Destination Country")]
         [Required]
-        public string Destination { get; set; }
+        public string DestinationCountry { get; set; }
+
+        [Display(Name = "Destination City")]
+        [Required]
+        public string DestinationCity { get; set; }
+
+        [Display(Name = "Departure time")]
+        [Required]
+        public DateTime DepartureTime { get; set; }
+
+        [Display(Name = "Arrival time")]
+        [Required]
+        public DateTime ArrivalTime { get; set; }
+
+        [Display(Name = "Price")]
+        [Required]
+        public double Price { get; set; }
 
         [Display(Name = "Recommendations")]
         [Required]

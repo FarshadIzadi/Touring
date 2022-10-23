@@ -13,6 +13,7 @@ namespace Touring.DataAccess.Repository.IRepository
         public ITourDetailsRepository TourDetails { get; }
         public IActivityRepository Activity { get; }
         public IAccommodationRepository Accommodation { get; }
+        public ITripRepository Trip { get; }
         public void Save();
     }
 }

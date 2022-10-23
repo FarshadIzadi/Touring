@@ -1,0 +1,67 @@
+﻿@page
+@model Touring.Pages.Admin.Trip.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Trip</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Trip.Vehicle)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Trip.Vehicle)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Trip.VehicleNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Trip.VehicleNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Trip.OriginCountry)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Trip.OriginCountry)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Trip.OriginCity)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Trip.OriginCity)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Trip.DestinationCountry)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Trip.DestinationCountry)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Trip.DestinationCity)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Trip.DestinationCity)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Trip.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Trip.Price)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Trip.Recommendations)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Trip.Recommendations)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Trip.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

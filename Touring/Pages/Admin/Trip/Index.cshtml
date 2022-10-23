@@ -1,0 +1,33 @@
+﻿@page
+@model Touring.Pages.Admin.Trip.IndexModel
+
+@{
+    ViewData["Title"] = "Trips List";
+}
+
+<div class="container row">
+    <div class="col-12 row">
+        <h2 class="col text-primary">Trip List:</h2>
+        <div class="col text-end"><a class="btn btn-primary" asp-page="Create">New Trip</a></div>
+    </div>
+    <div class="col-12">
+        <table id="dataTable" class="text-center table-striped table-responsive table border mx-1 mx-auto">
+            <thead>
+                <tr>
+                    <th>Vehicle</th>
+                    <th>Number</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/Trip.js"></script>
+}
