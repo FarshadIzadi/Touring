@@ -1,11 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Touring.DataAccess.Repository.IRepository;
 using Touring.Models;
 using Touring.Utility;
@@ -16,16 +20,31 @@ namespace Touring.Pages.Admin.Tours
     public class CreateModel : PageModel
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        public CreateModel(IUnitOfWork unitOfWork)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public CreateModel(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
+            _webHostEnvironment = webHostEnvironment;
         }
+
+        public SelectList countries { get; set; }
         [BindProperty]
         public TourHeader TourHeaderObj { get; set; }
         public void OnGet()
         {
             TourHeaderObj = new TourHeader();
+            TourHeaderObj.StartDate = DateTime.Now + TimeSpan.FromDays(7);
+            TourHeaderObj.EndDate = DateTime.Now + TimeSpan.FromDays(14);
+
+            var rootPath = _webHostEnvironment.WebRootPath;
+
+            var fullFilePath = Path.Combine(rootPath, @"files\countries.min.json");
+            var fileData = System.IO.File.ReadAllText(fullFilePath);
+
+            JsonDocument document = JsonDocument.Parse(fileData);
+            countries = new SelectList(document.RootElement.EnumerateObject(), "Name", "Name");
+
+
         }
 
         public IActionResult OnPost()
@@ -37,6 +56,7 @@ namespace Touring.Pages.Admin.Tours
 
                 TourHeaderObj.ManagerId = claim.Value;
                 TourHeaderObj.BookingStatus = SD.TourStatusCreating;
+                TourHeaderObj.EndDate += TimeSpan.FromDays(1);
                 _unitOfWork.TourHeader.Add(TourHeaderObj);
                 _unitOfWork.Save();
 
@@ -47,7 +67,6 @@ namespace Touring.Pages.Admin.Tours
                 return Page();
             }
 
-            return Page();
         }
     }
 }

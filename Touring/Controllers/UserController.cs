@@ -18,6 +18,7 @@ namespace Touring.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        
         public UserController(IUnitOfWork unitOfWork, ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _unitOfWork = unitOfWork;

@@ -1,0 +1,90 @@
+﻿@page
+@model Touring.Pages.Admin.Tours.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>TourHeader</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="TourHeader.Id" />
+            <div class="form-group">
+                <label asp-for="TourHeader.ManagerId" class="control-label"></label>
+                <select asp-for="TourHeader.ManagerId" class="form-control" asp-items="ViewBag.ManagerId"></select>
+                <span asp-validation-for="TourHeader.ManagerId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TourHeader.TourTitle" class="control-label"></label>
+                <input asp-for="TourHeader.TourTitle" class="form-control" />
+                <span asp-validation-for="TourHeader.TourTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TourHeader.TourCapacity" class="control-label"></label>
+                <input asp-for="TourHeader.TourCapacity" class="form-control" />
+                <span asp-validation-for="TourHeader.TourCapacity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TourHeader.BookingStatus" class="control-label"></label>
+                <input asp-for="TourHeader.BookingStatus" class="form-control" />
+                <span asp-validation-for="TourHeader.BookingStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TourHeader.CalculatedCosts" class="control-label"></label>
+                <input asp-for="TourHeader.CalculatedCosts" class="form-control" />
+                <span asp-validation-for="TourHeader.CalculatedCosts" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TourHeader.ExtraCosts" class="control-label"></label>
+                <input asp-for="TourHeader.ExtraCosts" class="form-control" />
+                <span asp-validation-for="TourHeader.ExtraCosts" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TourHeader.BenefitPerPerson" class="control-label"></label>
+                <input asp-for="TourHeader.BenefitPerPerson" class="form-control" />
+                <span asp-validation-for="TourHeader.BenefitPerPerson" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TourHeader.Description" class="control-label"></label>
+                <input asp-for="TourHeader.Description" class="form-control" />
+                <span asp-validation-for="TourHeader.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TourHeader.OriginCountry" class="control-label"></label>
+                <input asp-for="TourHeader.OriginCountry" class="form-control" />
+                <span asp-validation-for="TourHeader.OriginCountry" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TourHeader.OriginCity" class="control-label"></label>
+                <input asp-for="TourHeader.OriginCity" class="form-control" />
+                <span asp-validation-for="TourHeader.OriginCity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TourHeader.DestinationCountries" class="control-label"></label>
+                <input asp-for="TourHeader.DestinationCountries" class="form-control" />
+                <span asp-validation-for="TourHeader.DestinationCountries" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TourHeader.DestinationCities" class="control-label"></label>
+                <input asp-for="TourHeader.DestinationCities" class="form-control" />
+                <span asp-validation-for="TourHeader.DestinationCities" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

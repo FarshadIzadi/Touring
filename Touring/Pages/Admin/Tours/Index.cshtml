@@ -1,0 +1,28 @@
+﻿@page
+@model Touring.Pages.Admin.Activity.IndexModel
+
+<div class="container row">
+    <div class="col-12 row">
+        <h2 class="col text-primary">Tours List:</h2>
+        <div class="col text-end"><a class="btn btn-primary" asp-page="Create">Create Tour</a></div>
+    </div>
+    <div class="col-12">
+        <table id="dataTable" class="text-center table-striped table-responsive table border mx-1 mx-auto">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table> 
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/Tours.js"></script>
+}

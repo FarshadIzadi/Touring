@@ -15,14 +15,15 @@
         <div class="wrapper">
             <nav id="sidebar" class="bg-dark p-2">
                 <div class="sidebar-header">
-                    <h3 class="p-1">Touringo</h3>
+                    <h3 class="p-1" style="color: #6d7fcc;">Touringo</h3>
                 </div>
                 <ul class="list-unstyled components">
                     <a asp-page="/Admin/Index" style="text-decoration:none;cursor:pointer;"><p>Dashboard</p></a>
                     <li class="active">
                         <a href="#homesubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Manage Tours</a>
                         <ul id="homesubmenu" class="collapse list-unstyled">
-                            <li><a asp-page="/Admin/Tours/Create">Create Tour</a></li>
+                            <li><a asp-page="/Admin/Tours/Index">Tours</a></li>
+                            <li><a asp-page="/Admin/Tours/Create">Create a Tour</a></li>
                             <li><a href="#">Modify Tours</a></li>
                             <li><a href="#">Tour History</a></li>
                         </ul>
@@ -33,6 +34,7 @@
                             <li><a asp-page="/Admin/Accommodation/Index">Accomodations</a></li>
                             <li><a asp-page="/Admin/Activity/Index">Activities</a></li>
                             <li><a asp-page="/Admin/Trip/Index">Trips</a></li>
+                            <li><a asp-page="/Admin/Meal/Index">Meals</a></li>
                         </ul>
                     </li>
                     <li>

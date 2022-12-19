@@ -1,0 +1,2 @@
+when deleting a tour delete also tourdetails
+add recommendations to Accommodation CRUD 

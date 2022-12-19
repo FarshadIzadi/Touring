@@ -149,6 +149,9 @@ namespace Touring.DataAccess.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
+                    b.Property<string>("Recommendations")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("RoomSize")
                         .HasColumnType("nvarchar(max)");
 
@@ -312,6 +315,21 @@ namespace Touring.DataAccess.Migrations
                     b.ToTable("AspNetUserRoles");
                 });
 
+            modelBuilder.Entity("Touring.Models.Meal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("MealType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Meals");
+                });
+
             modelBuilder.Entity("Touring.Models.TourDetails", b =>
                 {
                     b.Property<int>("Id")
@@ -327,6 +345,9 @@ namespace Touring.DataAccess.Migrations
 
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("MealId")
+                        .HasColumnType("int");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
@@ -355,6 +376,8 @@ namespace Touring.DataAccess.Migrations
 
                     b.HasIndex("ActivityId");
 
+                    b.HasIndex("MealId");
+
                     b.HasIndex("TourGuideId");
 
                     b.HasIndex("TourHeaderId");
@@ -374,6 +397,15 @@ namespace Touring.DataAccess.Migrations
                     b.Property<double>("BenefitPerPerson")
                         .HasColumnType("float");
 
+                    b.Property<bool>("BookingAllowed")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("BookingEnd")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("BookingStart")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("BookingStatus")
                         .HasColumnType("nvarchar(max)");
 
@@ -391,6 +423,9 @@ namespace Touring.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<double>("ExtraCosts")
                         .HasColumnType("float");
 
@@ -404,6 +439,9 @@ namespace Touring.DataAccess.Migrations
                     b.Property<string>("OriginCountry")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("TourCapacity")
                         .HasColumnType("int");
@@ -528,6 +566,10 @@ namespace Touring.DataAccess.Migrations
                         .WithMany()
                         .HasForeignKey("ActivityId");
 
+                    b.HasOne("Touring.Models.Meal", "Meal")
+                        .WithMany()
+                        .HasForeignKey("MealId");
+
                     b.HasOne("Touring.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("TourGuideId");
@@ -547,6 +589,8 @@ namespace Touring.DataAccess.Migrations
                     b.Navigation("Activity");
 
                     b.Navigation("ApplicationUser");
+
+                    b.Navigation("Meal");
 
                     b.Navigation("TourHeader");
 

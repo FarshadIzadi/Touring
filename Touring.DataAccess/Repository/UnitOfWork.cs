@@ -20,6 +20,7 @@ namespace Touring.DataAccess.Repository
             Activity = new ActivityRepository(_context);
             Accommodation = new AccommodationRepository(_context);
             Trip = new TripRepository(_context);
+            Meal = new MealRepository(_context);
         }
 
         public IApplicationUserRepository ApplicationUser { get; private set; }
@@ -28,6 +29,7 @@ namespace Touring.DataAccess.Repository
         public IActivityRepository Activity { get; private set; }
         public IAccommodationRepository Accommodation { get; private set; }
         public ITripRepository Trip { get; private set; }
+        public IMealRepository Meal { get; private set; }
         public void Dispose()
         {
             _context.Dispose();

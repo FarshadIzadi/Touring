@@ -44,5 +44,6 @@ namespace Touring.Models
         [Required]
         public double Price { get; set; }
         public string Description { get; set; }
+        public string Recommendations { get; set; }
     }
 }

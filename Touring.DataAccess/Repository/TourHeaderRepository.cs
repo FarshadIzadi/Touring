@@ -11,8 +11,10 @@ namespace Touring.DataAccess.Repository
 {
     public class TourHeaderRepository : Repository<TourHeader>, ITourHeaderRepository
     {
-        public TourHeaderRepository(DbContext db) : base(db)
+        public TourHeaderRepository(ApplicationDbContext context) : base(context)
         {
         }
+
+
     }
 }

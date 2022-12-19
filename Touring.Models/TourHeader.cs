@@ -27,6 +27,7 @@ namespace Touring.Models
         public double BenefitPerPerson { get; set; } //desired profit for the agency for each tourist
         public string Description { get; set; }
         
+
         [Required]
         public string OriginCountry { get; set; }
 
@@ -39,9 +40,29 @@ namespace Touring.Models
         [Required]
         public string DestinationCities { get; set; }
 
+        [Display(Name = "Start Date")]
+        [Required]
+        public DateTime StartDate { get; set; }
+
+        [Display(Name = "End Date")]
+        [Required]
+        public DateTime EndDate { get; set; }
+
+        [Display(Name = "Booking Start Date")]
+        [Required]
+        public DateTime BookingStart { get; set; }
+
+        [Display(Name = "Booking End Date")]
+        [Required]
+        public DateTime BookingEnd { get; set; }
+
+        [Display(Name = "Booking Allowed")]
+        public bool BookingAllowed { get; set; }
+
         public TourHeader()
         {
             TourCapacity = 10;
+            BookingAllowed = true;
         }
     }
 }

@@ -9,6 +9,7 @@ namespace Touring.DataAccess.Repository.IRepository
 {
     public interface ITourDetailsRepository : IRepository<TourDetails>
     {
-
+        IEnumerable<string> GetTimeConflicts(int tourId);
+        IEnumerable<string> GetTimeConflicts(int tourId,TourDetails tourDetail);
     }
 }

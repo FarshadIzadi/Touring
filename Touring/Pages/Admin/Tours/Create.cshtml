@@ -31,10 +31,32 @@
                             </div>
                             <div class="row col-12 py-2">
                                 <div class="col-4">
-                                    <label asp-for="TourHeaderObj.OriginCountry" class="form-label"></label>
+                                    <label asp-for="TourHeaderObj.StartDate" class="form-label"></label>
                                 </div>
                                 <div class="col-8">
-                                    <input asp-for="TourHeaderObj.OriginCountry" class="form-control" />
+                                    <input type="date" asp-for="TourHeaderObj.StartDate" class="form-control" />
+                                    <span asp-validation-for="TourHeaderObj.StartDate" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row col-12 py-2">
+                                <div class="col-4">
+                                    <label asp-for="TourHeaderObj.EndDate" class="form-label"></label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="date" asp-for="TourHeaderObj.EndDate" class="form-control" />
+                                    <span asp-validation-for="TourHeaderObj.EndDate" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row col-12 py-2">
+                                <div class="col-4">
+                                    <label asp-for="TourHeaderObj.OriginCountry" class="form-label"></label>
+                                </div>
+                                <div class="col-8" id="countryDropDown">
+
+
+                                    <select asp-for="TourHeaderObj.OriginCountry" asp-items="@Model.countries" class="form-control">
+                                        <option>--Pick a Country--</option>
+                                    </select>
                                     <span asp-validation-for="TourHeaderObj.OriginCountry" class="text-danger"></span>
                                 </div>
                             </div>
@@ -43,7 +65,8 @@
                                     <label asp-for="TourHeaderObj.OriginCity" class="form-label"></label>
                                 </div>
                                 <div class="col-8">
-                                    <input asp-for="TourHeaderObj.OriginCity" class="form-control" />
+                                    <select id="originCity" asp-for="TourHeaderObj.OriginCity" class="form-control">
+                                    </select>
                                     <span asp-validation-for="TourHeaderObj.OriginCity" class="text-danger"></span>
                                 </div>
                             </div>
@@ -52,7 +75,12 @@
                                     <label asp-for="TourHeaderObj.DestinationCountries" class="form-label"></label>
                                 </div>
                                 <div class="col-8">
-                                    <input asp-for="TourHeaderObj.DestinationCountries" class="form-control" />
+
+                                    <select id="countriesSelect" class="form-control" asp-items="@Model.countries">
+                                        <option selected disabled value="addACountry">Add a Country</option>
+                                    </select>
+                                    <div id="countriesDisplay" class="form-control border" style="overflow:scroll;height:100px;position:relative;"></div>
+                                    <input hidden id="countriesMain" asp-for="TourHeaderObj.DestinationCountries" />
                                     <span asp-validation-for="TourHeaderObj.DestinationCountries" class="text-danger"></span>
                                 </div>
                             </div>
@@ -61,7 +89,11 @@
                                     <label asp-for="TourHeaderObj.DestinationCities" class="form-label"></label>
                                 </div>
                                 <div class="col-8">
-                                    <input asp-for="TourHeaderObj.DestinationCities" class="form-control" />
+                                    <select id="citiesSelect" class="form-control">
+                                        <option selected disabled value="addACity">Add a City</option>
+                                    </select>
+                                    <div id="citiesDisplay" class="form-control border" style="overflow:scroll;height:100px;position:relative;"></div>
+                                    <input hidden id="citiesMain" asp-for="TourHeaderObj.DestinationCities" />
                                     <span asp-validation-for="TourHeaderObj.DestinationCities" class="text-danger"></span>
                                 </div>
                             </div>
@@ -93,5 +125,7 @@
 
 
 @section Scripts{
+    
+    <script src="~/js/CreateTour.js"></script>
     <partial name="_ValidationScriptsPartial" />
 }

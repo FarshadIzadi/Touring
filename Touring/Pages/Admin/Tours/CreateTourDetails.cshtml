@@ -1,233 +1,289 @@
 ﻿@page
 @model Touring.Pages.Admin.Tours.CreateTourDetailsModel
-
-
 @*the title on Tour Details should be retrieved from the activity itseft
-1 the field title retrieves its vale from activiti, accommodation, or trip field through jquery*@ 
+    1 the field title retrieves its vale from activiti, accommodation, or trip field through jquery*@
 
 
-    <h1 class="px-2 text-primary bg-secondary">Add Details to the Tour</h1>
+<h1 class="px-2 text-primary bg-secondary">Add Details to the Tour</h1>
 
-    <div class="container px-0 mx-auto row">
+<div class="container px-0 mx-auto row">
 
-        @*left panel*@
-        <div class="col-8 px-0 mx-0">
-            <div class="card border-secondary mb-2" style="border-radius:5px;">
-                <div class="card-header bg-secondary">
-                    <div class="row col-12">
+    @*left panel*@
+    <div class="col-8 px-0 mx-0">
+        <div class="card border-secondary mb-2" >
+            <div class="card-header bg-white">
+                <div class="row col-12">
+
+                    @if (Model.Errors != null)
+                    {
+                        foreach (var error in Model.Errors)
+                        {
+                            <span class="text-danger p-2">@error</span>
+                        }
+
+                    }
+
+
+                    <div class="col-4">
+                        <label for="itemType" class="form-label">Add Item of Type:</label>
+                    </div>
+                    <div class="col-8">
+                        <select name="itemType" id="detailType" class="form-control">
+                            <option selected>--Choose Event Type--</option>
+                            <option value="accommodation">Accommodation</option>
+                            <option value="trip">Trip</option>
+                            <option value="activity">Activity</option>
+                            <option value="meal">Meal</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <form method="post" hidden id="detailsForm">
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <input type="hidden" asp-for="createTourObj.TourHeader.Id" />
+                    <input type="hidden" asp-for="createTourObj.TourHeader.OriginCity" />
+                    <input type="hidden" asp-for="createTourObj.TourHeader.OriginCountry" />
+                    <input type="hidden" asp-for="createTourObj.TourHeader.DestinationCities" />
+                    <input type="hidden" asp-for="createTourObj.TourHeader.DestinationCountries" />
+                    <input type="hidden" asp-for="createTourObj.TourHeader.TourTitle" />
+
+
+                    <div class="row col-12 py-2" id="activityInput" hidden>
                         <div class="col-4">
-                            <label for="itemType" class="form-label">Item Type:</label>
+                            <label asp-for="createTourObj.TourDetail.ActivityId" class="form-label"></label>
+                        </div>
+                        <div class="eventSelect col-8" id="activitySelect">
+
+                            @Html.DropDownListFor(m => Model.createTourObj.TourDetail.ActivityId,
+                                                       Model.Activities,
+                                                       "--Choose an Activity--",
+                                                       new { @class = "form-control" })
+
+
+                            <span asp-validation-for="createTourObj.TourDetail.ActivityId" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row col-12 py-2" id="tripInput" hidden>
+                        <div class="col-4">
+                            <label asp-for="createTourObj.TourDetail.TripId" class="form-label"></label>
+                        </div>
+                        <div class="eventSelect col-8" id="tripSelect">
+
+                            @Html.DropDownListFor(m => Model.createTourObj.TourDetail.TripId,
+                                                        Model.Trips,
+                                                        "--Choose a Trip--",
+                                                        new { @class = "form-control" })
+
+                            <span asp-validation-for="createTourObj.TourDetail.TripId" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row col-12 py-2" id="accommodationInput">
+                        <span class="text-danger col-12 text-center pb-2">Only Check-in and Check-out must be added in this form!</span>
+                        <div class="col-4">
+                            <label asp-for="createTourObj.TourDetail.AccommodationId" class="form-label"></label>
+                        </div>
+                        <div class="eventSelect col-8" id="accommodationSelect">
+
+                            @Html.DropDownListFor(m => Model.createTourObj.TourDetail.AccommodationId,
+                                                        Model.Accommodations,
+                                                        "--Choose an accommodation--",
+                                                        new { @class = "form-control" })
+
+                            <span asp-validation-for="createTourObj.TourDetail.AccommodationId" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row col-12 py-2" id="mealInput">
+                        <div class="col-4">
+                            <label asp-for="createTourObj.TourDetail.MealId" class="form-label"></label>
+                        </div>
+                        <div class="eventSelect col-8" id="mealSelect">
+
+                            @Html.DropDownListFor(m => Model.createTourObj.TourDetail.MealId,
+                                                        Model.Meals,
+                                                        "--Choose a Meal--",
+                                                        new { @class = "form-control" })
+
+                            <span asp-validation-for="createTourObj.TourDetail.MealId" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row col-12 py-2">
+                        <div class="col-4">
+                            <label asp-for="createTourObj.TourDetail.Title" class="form-label"></label>
                         </div>
                         <div class="col-8">
-                            <select name="itemType" id="detailType" class="form-control">
-                                <option selected >--Chooshe Event Type--</option> 
-                                <option value="accommodation">accommodation</option>
-                                <option value="trip">Trip</option>
-                                <option value="activity">Activity</option>
-                            </select>
+                            <input id="title" asp-for="createTourObj.TourDetail.Title" class="form-control" />
+                            <span asp-validation-for="createTourObj.TourDetail.Title" class="text-danger"></span>
                         </div>
                     </div>
-                </div>
-                <div class="card-body">
-                    <form method="post" hidden id="detailsForm">
-                        <div asp-validation-summary="ModelOnly"></div>
-                        <input type="hidden" asp-for="createTourObj.TourHeader.Id" />
-                        <input type="hidden" asp-for="createTourObj.TourHeader.OriginCity" />
-                        <input type="hidden" asp-for="createTourObj.TourHeader.OriginCountry" />
-                        <input type="hidden" asp-for="createTourObj.TourHeader.DestinationCities" />
-                        <input type="hidden" asp-for="createTourObj.TourHeader.DestinationCountries" />
-                        <input type="hidden" asp-for="createTourObj.TourHeader.TourTitle" />
 
 
-                        <div class="row col-12 py-2" id="activityInput" hidden>
-                            <div class="col-4">
-                                <label asp-for="createTourObj.TourDetail.ActivityId" class="form-label"></label>
-                            </div>
-                            <div class="col-8">
-                                <input asp-for="createTourObj.TourDetail.ActivityId" class="form-control" />
-                                <span asp-validation-for="createTourObj.TourDetail.ActivityId" class="text-danger"></span>
-                            </div>
+
+                    <div class="row col-12 py-2">
+                        <div class="col-4">
+                            <label asp-for="createTourObj.TourDetail.StartDate" class="form-label"></label>
                         </div>
-
-                        <div class="row col-12 py-2" id="tripInput" hidden>
-                            <div class="col-4">
-                                <label asp-for="createTourObj.TourDetail.TripId" class="form-label"></label>
-                            </div>
-                            <div class="col-8">
-                                <input asp-for="createTourObj.TourDetail.TripId" class="form-control" />
-                                <span asp-validation-for="createTourObj.TourDetail.TripId" class="text-danger"></span>
-                            </div>
+                        <div class="col-8">
+                            <input id="startDate" type="date" asp-for="createTourObj.TourDetail.StartDate" class="form-control" />
+                            <span asp-validation-for="createTourObj.TourDetail.StartDate" class="text-danger"></span>
                         </div>
+                    </div>
 
-                        <div class="row col-12 py-2" id="accommodationInput">
-                            <div class="col-4">
-                                <label asp-for="createTourObj.TourDetail.AccommodationId" class="form-label"></label>
-                            </div>
-                            <div class="col-8">
-                                <input asp-for="createTourObj.TourDetail.AccommodationId" class="form-control" />
-                                <span asp-validation-for="createTourObj.TourDetail.AccommodationId" class="text-danger"></span>
-                            </div>
+                    <div class="row col-12 py-2">
+                        <div class="col-4">
+                            <label asp-for="createTourObj.TourDetail.StartTime" class="form-label"></label>
                         </div>
-
-                        <div class="row col-12 py-2">
-                            <div class="col-4">
-                                <label asp-for="createTourObj.TourDetail.Title" class="form-label"></label>
-                            </div>
-                            <div class="col-8">
-                                <input asp-for="createTourObj.TourDetail.Title" class="form-control" />
-                                <span asp-validation-for="createTourObj.TourDetail.Title" class="text-danger"></span>
-                            </div>
+                        <div class="col-8">
+                            <input id="startTime" type="time" asp-for="createTourObj.TourDetail.StartTime" class="form-control" />
+                            <span asp-validation-for="createTourObj.TourDetail.StartTime" class="text-danger"></span>
                         </div>
+                    </div>
 
-
-
-                        <div class="row col-12 py-2">
-                            <div class="col-4">
-                                <label asp-for="createTourObj.TourDetail.StartDate" class="form-label"></label>
-                            </div>
-                            <div class="col-8">
-                                <input type="date" asp-for="createTourObj.TourDetail.StartDate" class="form-control" />
-                                <span asp-validation-for="createTourObj.TourDetail.StartDate" class="text-danger"></span>
-                            </div>
+                    <div class="row col-12 py-2">
+                        <div class="col-4">
+                            <label asp-for="createTourObj.TourDetail.EndDate" class="form-label"></label>
                         </div>
-
-                        <div class="row col-12 py-2">
-                            <div class="col-4">
-                                <label asp-for="createTourObj.TourDetail.StartTime" class="form-label"></label>
-                            </div>
-                            <div class="col-8">
-                                <input type="time" asp-for="createTourObj.TourDetail.StartTime" class="form-control" />
-                                <span asp-validation-for="createTourObj.TourDetail.StartTime" class="text-danger"></span>
-                            </div>
+                        <div class="col-8">
+                            <input id="endDate" type="date" asp-for="createTourObj.TourDetail.EndDate" class="form-control" />
+                            <span asp-validation-for="createTourObj.TourDetail.EndDate" class="text-danger"></span>
                         </div>
+                    </div>
 
-                        <div class="row col-12 py-2">
-                            <div class="col-4">
-                                <label asp-for="createTourObj.TourDetail.EndDate" class="form-label"></label>
-                            </div>
-                            <div class="col-8">
-                                <input type="date" asp-for="createTourObj.TourDetail.EndDate" class="form-control" />
-                                <span asp-validation-for="createTourObj.TourDetail.EndDate" class="text-danger"></span>
-                            </div>
+
+                    <div class="row col-12 py-2">
+                        <div class="col-4">
+                            <label asp-for="createTourObj.TourDetail.EndTime" class="form-label"></label>
                         </div>
-
-
-                        <div class="row col-12 py-2">
-                            <div class="col-4">
-                                <label asp-for="createTourObj.TourDetail.EndTime" class="form-label"></label>
-                            </div>
-                            <div class="col-8">
-                                <input type="time" asp-for="createTourObj.TourDetail.EndTime" class="form-control" />
-                                <span asp-validation-for="createTourObj.TourDetail.EndTime" class="text-danger"></span>
-                            </div>
+                        <div class="col-8">
+                            <input id="endTime" type="time" asp-for="createTourObj.TourDetail.EndTime" class="form-control" />
+                            <span asp-validation-for="createTourObj.TourDetail.EndTime" class="text-danger"></span>
                         </div>
+                    </div>
 
-                        <div class="row col-12 py-2">
-                            <div class="col-4">
-                                <label asp-for="createTourObj.TourDetail.TourGuideId" class="form-label"></label>
-                            </div>
-                            <div class="col-8">
-                                @Html.DropDownListFor(m => m.createTourObj.TourDetail.TourGuideId,
-                                                        Model.TourGuids,
-                                                        "Select (optional)",
-                                                        new { @class = "form-control" })
-                                <span asp-validation-for="createTourObj.TourDetail.TourGuideId" class="text-danger"></span>
-                            </div>
+                    <div class="row col-12 py-2">
+                        <div class="col-4">
+                            <label asp-for="createTourObj.TourDetail.TourGuideId" class="form-label"></label>
                         </div>
-
-
-
-                        <div class="row col-12 py-2">
-                            <div class="col-4">
-                                <label asp-for="createTourObj.TourDetail.Price" class="form-label"></label>
-                            </div>
-                            <div class="col-8">
-                                <input asp-for="createTourObj.TourDetail.Price" class="form-control" />
-                                <span asp-validation-for="createTourObj.TourDetail.Price" class="text-danger"></span>
-                            </div>
+                        <div class="col-8">
+                            @Html.DropDownListFor(m => m.createTourObj.TourDetail.TourGuideId,
+                                                    Model.TourGuids,
+                                                    "Select (optional)",
+                                                    new { @class = "form-control" })
+                            <span asp-validation-for="createTourObj.TourDetail.TourGuideId" class="text-danger"></span>
                         </div>
+                    </div>
 
-                        <div class="row col-12 py-2">
-                            <div class="col-4">
-                                <label asp-for="createTourObj.TourDetail.Recommendations" class="form-label"></label>
-                            </div>
-                            <div class="col-8">
-                                <textarea asp-for="createTourObj.TourDetail.Recommendations" class="form-control"></textarea>
-                            </div>
+
+
+                    <div class="row col-12 py-2">
+                        <div class="col-4">
+                            <label asp-for="createTourObj.TourDetail.Price" class="form-label"></label>
                         </div>
-
-
-
-                        <div class="row col-12 py-2">
-                            <div class="offset-4 col-8 d-flex justify-content-evenly">
-                                <input type="submit" asp-page-handler="Continue" class="mx-1 btn btn-primary form-control" value="Add Next Event" />
-                                <input type="submit" asp-page-handler="Finalize" class="mx-1 btn btn-secondary form-control" value="finalize Tour" />
-                            </div>
+                        <div class="col-8">
+                            <input id="eventPrice" asp-for="createTourObj.TourDetail.Price" class="form-control" />
+                            <span asp-validation-for="createTourObj.TourDetail.Price" class="text-danger"></span>
                         </div>
-                    </form>
+                    </div>
+
+                    <div class="row col-12 py-2">
+                        <div class="col-4">
+                            <label asp-for="createTourObj.TourDetail.Recommendations" class="form-label"></label>
+                        </div>
+                        <div class="col-8">
+                            <textarea id="recommendations" asp-for="createTourObj.TourDetail.Recommendations" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row col-12 py-2">
+                        <div class="offset-4 col-8 d-flex justify-content-evenly">
+                            <input type="submit" asp-page-handler="Continue" class="mx-1 btn btn-primary form-control" value="Add Next Event" />
+
+                        </div>
+                    </div>
+                </form>
+                <div class="col-12" id="finalizeBtn">
+                    <h4 class="text-center py-2"> OR </h4>
+                    <a asp-page="FinalizeTour" asp-route-tourId="@Model.createTourObj.TourHeader.Id" class="mx-1 btn btn-success form-control pb-2">Finalize Tour</a>
                 </div>
             </div>
         </div>
 
-        @*right panel*@
-        <div class="col-4 row px-0 mx-0">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="col-12 text-center my-0 py-0">@Model.createTourObj.TourHeader.TourTitle</h3>
-                    <h3 style="position:relative;border-bottom:1px solid #00ffff;" class="col-12 text-center">Id: @Model.createTourObj.TourHeader.Id</h3>
 
-                </div>
-                <div class="card-body">
-                    <div class="col-12">
-                        <span>Capacity</span>
-                        <span>@Model.createTourObj.TourHeader.TourCapacity</span>
-                    </div>
-                    <div class="col-12 d-flex justify-content-between">
-                        <span>From:</span>
-                        <span>@Model.createTourObj.TourHeader.OriginCity, (@Model.createTourObj.TourHeader.OriginCountry) </span>
-                    </div>
-                    <div class="col-12 d-flex justify-content-between">
-                        <span>To:</span>
-                        <span>@Model.createTourObj.TourHeader.DestinationCities, (@Model.createTourObj.TourHeader.DestinationCountries) </span>
-                    </div>
-                    <table class="table table-striped table-responsive table-bordered">
-                        <thead>
-                            <tr>
-                                <th class="text-center">Item</th>
-                                <th class="text-center">Price</th>
-                            </tr>
-                        </thead>
-                        <tbody>
 
-                            @foreach (var item in Model.createTourObj.TourDetails)
-                            {
-                                <tr>
-                                    <td>
-                                        <span>@item.Title</span>
-
-                                    </td>
-                                    <td class="text-end">
-                                        @item.Price
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-
-                    <div class="d-flex justify-content-between bg-dark text-light">
-                        <span>total:</span>
-                        <span>@Model.createTourObj.TourHeader.CalculatedCosts.ToString("C")</span>
-                        <div />
-                    </div>
-                </div>
-
-            </div>
-        </div>
 
     </div>
 
+    @*right panel*@
+    <div class="col-4 row px-0 mx-0">
+        <div class="card">
+            <div class="card-header bg-white">
+                <h3 style="position:relative;" class="col-12 text-center">@Model.createTourObj.TourHeader.TourTitle</h3>
+            </div>
+            <div class="card-body">
+                <div class="col-12">
+                    <span>Capacity</span>
+                    <span>@Model.createTourObj.TourHeader.TourCapacity</span>
+                </div>
+                <div class="col-12 d-flex justify-content-between">
+                    <span>From:</span>
+                    <span>@Model.createTourObj.TourHeader.OriginCity, (@Model.createTourObj.TourHeader.OriginCountry) </span>
+                </div>
+                <div class="col-12 d-flex justify-content-between">
+                    <span>To:</span>
+                    <span>@Model.createTourObj.TourHeader.DestinationCities, (@Model.createTourObj.TourHeader.DestinationCountries) </span>
+                </div>
+                <div class="col-12 d-flex justify-content-between">
+                    <span>Start:</span>
+                    <span>@Model.createTourObj.TourHeader.StartDate.ToShortDateString()</span>
+                </div>
+                <div class="col-12 d-flex justify-content-between">
+                    <span>End:</span>
+                    <span>@Model.createTourObj.TourHeader.EndDate.ToShortDateString()</span>
+                </div>
+                <table class="table table-striped table-responsive table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Item</th>
+                            <th class="text-center">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-    @section Scripts{
-        <script src="~/js/AddTourDetails.js"></script>
-        <partial name="_ValidationScriptsPartial" />
-    }
+                        @foreach (var item in Model.createTourObj.TourDetails)
+                        {
+                            <tr>
+                                <td>
+                                    <span>@item.Title</span>
+
+                                </td>
+                                <td class="text-end">
+                                    @item.Price
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <div class="d-flex justify-content-between bg-dark text-light">
+                    <span>total:</span>
+                    <span>@Model.createTourObj.TourHeader.CalculatedCosts.ToString("C")</span>
+                    <div />
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+@section Scripts{
+    <script src="~/js/AddTourDetails.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+}

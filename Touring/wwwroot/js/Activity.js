@@ -17,7 +17,6 @@ function loadTable(tableId) {
     $(tableId).attr('border-radius', '5px');
 
     $.getJSON('/api/Activity', function (data) {
-        console.log(data.data[0]);
         jsonString = data;
 
         $.each(data.data, function (index, element) {

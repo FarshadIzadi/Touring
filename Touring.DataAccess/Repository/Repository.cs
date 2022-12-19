@@ -24,7 +24,10 @@ namespace Touring.DataAccess.Repository
         {
             _dbSet.Add(entity);
         }
-
+        public void Update(T entity)
+        {
+            _dbSet.Update(entity);
+        }
         public void AddRange(IEnumerable<T> entities)
         {
             _dbSet.AddRange(entities);

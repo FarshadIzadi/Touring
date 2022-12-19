@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -35,9 +36,15 @@ namespace Touring.Models
         [ForeignKey("TripId")]
         public virtual Trip Trip { get; set; }
 
+        [Display(Name = "Accommodation")]
         public int? AccommodationId { get; set; }
         [ForeignKey("AccommodationId")]
         public virtual Accommodation Accommodation { get; set; }
+
+        [Display(Name = "Meal")]
+        public int? MealId { get; set; }
+        [ForeignKey("MealId")]
+        public virtual Meal Meal { get; set; }
 
         public double Price { get; set; }
         public string Recommendations { get; set; }

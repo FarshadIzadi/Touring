@@ -1,0 +1,85 @@
+﻿@page
+@model Touring.Pages.Admin.Tours.EditDetailModel
+
+@{
+    ViewData["Title"] = "EditDetail";
+}
+
+<h1>EditDetail</h1>
+
+<h4>TourDetails</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="TourDetails.Id" />
+            <div class="form-group">
+                <label asp-for="TourDetails.TourHeaderId" class="control-label"></label>
+                <select asp-for="TourDetails.TourHeaderId" class="form-control" asp-items="ViewBag.TourHeaderId"></select>
+                <span asp-validation-for="TourDetails.TourHeaderId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TourDetails.Title" class="control-label"></label>
+                <input asp-for="TourDetails.Title" class="form-control" />
+                <span asp-validation-for="TourDetails.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TourDetails.StartTime" class="control-label"></label>
+                <input asp-for="TourDetails.StartTime" class="form-control" />
+                <span asp-validation-for="TourDetails.StartTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TourDetails.EndTime" class="control-label"></label>
+                <input asp-for="TourDetails.EndTime" class="form-control" />
+                <span asp-validation-for="TourDetails.EndTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TourDetails.TourGuideId" class="control-label"></label>
+                <select asp-for="TourDetails.TourGuideId" class="form-control" asp-items="ViewBag.TourGuideId"></select>
+                <span asp-validation-for="TourDetails.TourGuideId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TourDetails.ActivityId" class="control-label"></label>
+                <select asp-for="TourDetails.ActivityId" class="form-control" asp-items="ViewBag.ActivityId"></select>
+                <span asp-validation-for="TourDetails.ActivityId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TourDetails.TripId" class="control-label"></label>
+                <select asp-for="TourDetails.TripId" class="form-control" asp-items="ViewBag.TripId"></select>
+                <span asp-validation-for="TourDetails.TripId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TourDetails.AccommodationId" class="control-label"></label>
+                <select asp-for="TourDetails.AccommodationId" class="form-control" asp-items="ViewBag.AccommodationId"></select>
+                <span asp-validation-for="TourDetails.AccommodationId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TourDetails.MealId" class="control-label"></label>
+                <select asp-for="TourDetails.MealId" class="form-control" asp-items="ViewBag.MealId"></select>
+                <span asp-validation-for="TourDetails.MealId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TourDetails.Price" class="control-label"></label>
+                <input asp-for="TourDetails.Price" class="form-control" />
+                <span asp-validation-for="TourDetails.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TourDetails.Recommendations" class="control-label"></label>
+                <input asp-for="TourDetails.Recommendations" class="form-control" />
+                <span asp-validation-for="TourDetails.Recommendations" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

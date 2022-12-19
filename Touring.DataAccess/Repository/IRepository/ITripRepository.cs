@@ -10,6 +10,6 @@ namespace Touring.DataAccess.Repository.IRepository
 {
     public interface ITripRepository : IRepository<Trip>
     {
-        IEnumerable<SelectListItem> ListForDropDown();
+        IEnumerable<SelectListItem> ListForDropDown(int tourId);
     }
 }

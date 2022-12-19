@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,7 @@ namespace Touring.DataAccess.Repository.IRepository
 {
     public interface IActivityRepository : IRepository<Activity>
     {
+        IEnumerable<SelectListItem> ListForDropDown(int tourId);
 
     }
 }

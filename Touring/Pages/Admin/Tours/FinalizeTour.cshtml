@@ -2,12 +2,152 @@
 @model Touring.Pages.Admin.Tours.FinalizeTourModel
 
 
-<div class="container row">
-    <div class="col-12 row">
-        <h2 class="col text-primary">Finalize Tour</h2>
-        <div class="col justify-content-end"><a class="text-center btn btn-primary"asp-page="Create-Tour-Details">Add More Details</a></div>
+<div class="container mx-auto row">
+    <div class="pb-2 mx-auto col-12 row" style="border-bottom:solid 1px #00ffff;">
+        <h2 class="col-6 text-primary">@Model.createTourObj.TourHeader.TourTitle</h2>
+        <div class="col-6 d-flex justify-content-end"><a class="text-center btn btn-primary my-auto" style="border-radius:5px;" asp-page="CreateTourDetails" asp-route-tourId="@Model.createTourObj.TourHeader.Id">Add More Details</a></div>
     </div>
-    <div class="col-12">
-        her goes the main content
+    <div class="col-12 row py-2">
+        <div class="col-8 row">
+            <form method="post">
+                @foreach (var item in Model.createTourObj.TourDetails)
+                {
+                    <div class="form-control p-2 m-2 mx-auto" style="border-radius:7px;background-color:#efefef;">
+                        <h6 class="text-primary fw-bold">@item.Title</h6>
+                        <div class="row my-1">
+                            <div class="col">
+                                <div>
+                                    <span class="float-start text-primary">Start Time :</span>
+                                    <span class="float-end">@item.StartTime.ToShortDateString() @item.StartTime.ToShortTimeString()</span>
+                                </div>
+                            </div>
+                            <div class="col d-flex justify-content-evenly">
+                                <div>
+                                    <span class="float-start text-primary">End Time :</span>
+                                    <span class="float-end">@item.EndTime.ToShortDateString() @item.EndTime.ToShortTimeString()</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row d-flex my-1">
+                            @{
+                                string address = "N/A";
+                                if (item.ActivityId != null)
+                                {
+                                    address = (item.Activity.Address ?? "") + " " + item.Activity.City + " " + item.Activity.Country;
+                                }
+                                else if (item.AccommodationId != null)
+                                {
+                                    address = (item.Accommodation.Address ?? "") + " " + item.Accommodation.City + " " + item.Accommodation.Country;
+                                }
+                            }
+                            <div>
+                                <span class="float-start text-primary">Address: &nbsp;&nbsp;</span>
+                                <span class="float-start">@address</span>
+
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-danger  mx-3" id="removeDetail" style="border-radius:5px;" asp-page-handler="Remove" asp-route-detailId="@item.Id">Remove</button>
+                            <a class="btn btn-warning mx-3" style="border-radius:5px;" asp-page="EditDetail" asp-route-detailId="@item.Id">Edit</a>
+                        </div>
+
+
+                    </div>
+                }
+
+                <div asp-validation-summary="ModelOnly"></div>
+                <input type="hidden" asp-for="createTourObj.TourHeader.Id" />
+                <input type="hidden" asp-for="createTourObj.TourHeader.OriginCity" />
+                <input type="hidden" asp-for="createTourObj.TourHeader.OriginCountry" />
+                <input type="hidden" asp-for="createTourObj.TourHeader.DestinationCities" />
+                <input type="hidden" asp-for="createTourObj.TourHeader.DestinationCountries" />
+                <input type="hidden" asp-for="createTourObj.TourHeader.TourTitle" />
+
+                <div class="form-control m-0 p-2 mx-auto" style="border-radius:7px;">
+                    <div class="col-12 row my-1 mx-0">
+                        <div class="col-4">
+                            Extra Costs:
+                        </div>
+                        <div class="col-8">
+                            <input asp-for="createTourObj.TourHeader.ExtraCosts" class="form-control" />
+                            <span class="text-danger" asp-validation-for="createTourObj.TourHeader.ExtraCosts"></span>
+                        </div>
+                    </div>
+                    <div class="col-12 row my-1 mx-0">
+                        <div class="col-4">
+                            benefit per person:
+                        </div>
+                        <div class="col-8">
+                            <input asp-for="createTourObj.TourHeader.BenefitPerPerson" class="form-control" />
+                            <span class="text-danger" asp-validation-for="createTourObj.TourHeader.BenefitPerPerson"></span>
+                        </div>
+                    </div>
+                    <div class="col-12 row my-1 mx-0">
+                        <div class="col-4">
+                            Start Booking Date:
+                        </div>
+                        <div class="col-8">
+                            <input type="date" asp-for="createTourObj.TourHeader.BookingStart" class="form-control" />
+                            <span class="text-danger" asp-validation-for="createTourObj.TourHeader.BookingStart"></span>
+                        </div>
+                    </div>
+                    <div class="col-12 row my-1 mx-0">
+                        <div class="col-4">
+                            Close Booking Date:
+                        </div>
+                        <div class="col-8">
+                            <input type="date" asp-for="createTourObj.TourHeader.BookingEnd" class="form-control" />
+                            <span class="text-danger" asp-validation-for="createTourObj.TourHeader.BookingEnd"></span>
+                        </div>
+                    </div>
+                    <div class="col-12 row my-1 mx-0">
+                        <div class="offset-4 col-8">
+                            <input type="submit" class="form-control btn btn-success" value="Create Tour" />
+                        </div>
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+
+        @*right panel*@
+        <div class="col-4 row pl-2 border mx-auto mt-2 pt-1 d-flex justify-content-start" style="border-radius:7px;">
+            <div class="col-12">
+                <span>Capacity:</span>
+                <span>@Model.createTourObj.TourHeader.TourCapacity</span>
+            </div>
+            <div class="col-12">
+                <span>From:</span>
+                <span>@Model.createTourObj.TourHeader.OriginCity, (@Model.createTourObj.TourHeader.OriginCountry) </span>
+            </div>
+            <div class="col-12">
+                <span>To:</span>
+                <span>@Model.createTourObj.TourHeader.DestinationCities, (@Model.createTourObj.TourHeader.DestinationCountries) </span>
+            </div>
+            <div class="col-12">
+                <span>Start:</span>
+                <span>@Model.createTourObj.TourHeader.StartDate.ToShortDateString()</span>
+            </div>
+            <div class="col-12">
+                <span>End:</span>
+                <span>@Model.createTourObj.TourHeader.EndDate.ToShortDateString()</span>
+            </div>
+        </div>
     </div>
 </div>
+
+@section Scripts{
+    <script>
+
+        $(document).ready(function () {
+            $("#removeDetail").on('click', function (event) {
+                var conf = confirm("Sure to delete item from list?");
+                if (!conf) {
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
+}
