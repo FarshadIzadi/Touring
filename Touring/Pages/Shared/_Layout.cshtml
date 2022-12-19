@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
-<body  class="overalStyle">
+<body class="overalStyle">
     @if (User.IsInRole(SD.RoleManager))
     {
         //https://bootstrapious.com/p/bootstrap-sidebar
@@ -76,33 +76,54 @@
     else
     {
 
-        <header>
-            <nav style="border-bottom:1px solid #808080;" class="navbar navbar-expand-sm navbar-toggleable-sm bg-white box-shadow mb-3 text-white">
-                <div class="container-fluid">
-                    <a class="navbar-brand text-dark" asp-area="" asp-page="/Index">Touring</a>
+        <header class="py-0">
+            <nav class="userNavBar navbar navbar-expand-sm navbar-toggleable-sm py-sm-0  m-0 bg-light-green">
+                <div class="container px-5">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                        <ul class="navbar-nav flex-grow-1">
+
+                    <div class="navbar-collapse collapse d-sm-flex flex-column justify-content-between">
+                        <div class="container-fluid d-sm-flex flex-row justify-content-between align-items-start" style="border-bottom:solid 1px rgba(0,255,33,0.5)">
+                            <a asp-area="" asp-page="/Index"><img class="logo d-none d-sm-block" src="~/images/Logo-Image.png" /></a>
+                            <partial name="_LoginPartial" />
+                        </div>
+
+                        <ul class="navbar-nav d-flex align-items-start">
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                                <a class="nav-link text-green">Tours</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                                <a class="nav-link text-green">Tickets</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-green">Gallery</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-green">Contact</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-green">About us</a>
+                            </li>
+
                         </ul>
-                        <partial name="_LoginPartial" />
                     </div>
+
                 </div>
             </nav>
+
         </header>
-        <div class="container">
-            <main role="main" class="pb-3">
+
+
+        <div class="container-fluid p-0 m-0" >
+            <main role="main" >
                 @RenderBody()
             </main>
         </div>
+
+
+
     }
 
     <footer class="footer bg-dark text-muted">
