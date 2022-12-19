@@ -1,3 +1,72 @@
 ﻿@page
 @model Touring.Pages.user.SearchToursModel
-<h1>Here we search for tours</h1>
+
+
+<form method="post">
+    <div class="container mt-3">
+        <div class="p-3 bg-light-green filtersFrame">
+            <div class="d-block green_division">
+                <h2 class="text-center text-capitalize text-green ">Find a Tour that suits you best</h2>
+            </div>
+            <div class="d-flex flex-column mx-auto justify-content-between align-content-center mt-2">
+                <div class="row col-12 pt-0 ">
+                    <h5 class="mx-5 fw-bold col-12">From</h5>
+                    <div class="col-12 row d-flex justify-content-between d-block m-3 mt-0 py-1 round-corners">
+                        <div class="col-12 col-md-6">
+                            <div class="my-1 mx-1 my-md-0 px-2 bg-white round-corners formFieldShadow">
+                                <label for="country" class="d-block">Country</label>
+                                <select id="country" class="form-select form-control text-center fw-bold"><option>Choose Country</option></select>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="my-1 mx-1 my-md-0 px-2 bg-white round-corners formFieldShadow">
+                                <label for="city" class="d-block">City</label>
+                                <select name="city" class="form-select form-control text-center fw-bold"><option>Choose City</option></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row col-12 pt-0 ">
+                <h5 class="fw-bold mx-5 col-12">To</h5>
+                <div class="col-12 row d-flex justify-content-between d-block m-3 mt-0 py-1 round-corners">
+                    <div class="col-12 col-md-6">
+                        <div class="my-1 mx-1 my-md-0 px-2 bg-white round-corners formFieldShadow">
+                            <label class="d-block">Country</label>
+                            <select class="form-select form-control text-center fw-bold"><option>Choose Country</option></select>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="my-1 mx-1 my-md-0 px-2 bg-white round-corners formFieldShadow">
+                            <label class="d-block">City</label>
+                            <select class="form-select form-control text-center fw-bold"><option>Choose City</option></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row col-12 pt-0">
+                <h5 class="fw-bold mx-5 col-12 ">Date</h5>
+                <div class="col-12 row d-flex justify-content-between d-block m-3 mt-0 py-1 round-corners">
+                    <div class="col-12 col-md-6">
+                        <div class="my-1 mx-1 my-md-0 px-2 bg-white round-corners formFieldShadow">
+                            <label class="d-block">Departure</label>
+                            <input type="date" class="form-control text-center fw-bold" />
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="my-1 mx-1 my-md-0 px-2 bg-white round-corners formFieldShadow">
+                            <label class="d-block">Arrival</label>
+                            <input type="date" class="form-control text-center fw-bold" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row col-12 col-md-6 offset-md-6 pt-0 px-4 ">
+                <button type="submit" class="btn btn-success round-corners formFieldShadow"><h4 class="fw-bold">Search</h4></button>
+            </div>
+
+            </div>
+        </div>
+</form>
