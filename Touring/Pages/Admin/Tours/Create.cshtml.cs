@@ -56,7 +56,7 @@ namespace Touring.Pages.Admin.Tours
 
                 TourHeaderObj.ManagerId = claim.Value;
                 TourHeaderObj.BookingStatus = SD.TourStatusCreating;
-                TourHeaderObj.EndDate += TimeSpan.FromDays(1);
+                
                 _unitOfWork.TourHeader.Add(TourHeaderObj);
                 _unitOfWork.Save();
 

@@ -14,6 +14,9 @@ namespace Touring.Models
         public string ManagerId { get; set; }
         [ForeignKey("ManagerId")]
         public virtual ApplicationUser ApplicationUser { get; set; }
+        
+        [NotMapped]
+        public IEnumerable<TourDetails> TourDetails { get; set; }
 
         [Required]
         [Display(Name ="Tour Title")]

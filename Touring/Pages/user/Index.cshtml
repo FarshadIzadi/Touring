@@ -17,9 +17,9 @@
             <div class="tourSearch d-flex flex-column flex-lg-row px-0 justify-content-between align-items-center my-0 col-11 mx-auto">
                 <div class="d-flex mx-5 align-items-center flex-column flex-md-row">
                     <span class="text-muted text-nowrap py-2">Find tours from </span>
-                    <select class="fw-bold mx-3 form-select searchfield py-2" style="min-width:150px;" asp-items="@Model.originCountries"></select>
+                    <select class="fw-bold mx-3 form-select searchfield py-2" style="min-width:150px;" asp-for="originCountry" asp-items="@Model.originCountries"></select>
                     <span class="text-muted py-2">to</span>
-                    <select class="fw-bold mx-3 form-select searchfield py-2" style="min-width:150px;" asp-items="@Model.destinationCountries"></select>
+                    <select class="fw-bold mx-3 form-select searchfield py-2" style="min-width:150px;" asp-for="destinationCountry" asp-items="@Model.destinationCountries"></select>
                 </div>
                 <button type="submit" class="btn searchBtn col-11 col-lg-3 d-flex justify-content-center align-items-center">
                     <h4 class="text-center  text-white">Find Tours</h4>

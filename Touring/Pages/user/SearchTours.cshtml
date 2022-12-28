@@ -2,12 +2,17 @@
 @model Touring.Pages.user.SearchToursModel
 
 
-<form method="post">
-    <div class="container mt-3">
-        <div class="p-3 bg-light-green filtersFrame">
+<div class="container my-3">
+    <form method="post">
+        <div class="p-3 bg-light-green shadowFrame mb-3">
             <div class="d-block green_division">
                 <h2 class="text-center text-capitalize text-green ">Find a Tour that suits you best</h2>
             </div>
+
+            <div class="text-center text-danger" asp-validation-summary="ModelOnly"></div>
+            <input type="hidden" id="selectedFromCity" value="@Model.searchObj.TourHeader.OriginCity" />
+            <input type="hidden" id="selectedToCity" value="@Model.searchObj.TourHeader.DestinationCities" />
+
             <div class="d-flex flex-column mx-auto justify-content-between align-content-center mt-2">
                 <div class="row col-12 pt-0 ">
                     <h5 class="mx-5 fw-bold col-12">From</h5>
@@ -15,13 +20,13 @@
                         <div class="col-12 col-md-6">
                             <div class="my-1 mx-1 my-md-0 px-2 bg-white round-corners formFieldShadow">
                                 <label for="country" class="d-block">Country</label>
-                                <select id="country" class="form-select form-control text-center fw-bold"><option>Choose Country</option></select>
+                                <select id="fromCountry" asp-for="searchObj.TourHeader.OriginCountry" asp-items="@Model.searchObj.originCountries" class="form-select form-control text-center fw-bold"><option value="">Choose a Country</option></select>
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="my-1 mx-1 my-md-0 px-2 bg-white round-corners formFieldShadow">
-                                <label for="city" class="d-block">City</label>
-                                <select name="city" class="form-select form-control text-center fw-bold"><option>Choose City</option></select>
+                                <label class="d-block">City</label>
+                                <select id="fromCities" asp-for="searchObj.TourHeader.OriginCity" class="form-select form-control text-center fw-bold"><option value="">Choose a City</option></select>
                             </div>
                         </div>
                     </div>
@@ -34,13 +39,13 @@
                     <div class="col-12 col-md-6">
                         <div class="my-1 mx-1 my-md-0 px-2 bg-white round-corners formFieldShadow">
                             <label class="d-block">Country</label>
-                            <select class="form-select form-control text-center fw-bold"><option>Choose Country</option></select>
+                            <select id="toCountry" asp-for="searchObj.TourHeader.DestinationCountries" asp-items="@Model.searchObj.destinationCountries" class="form-select form-control text-center fw-bold"><option value="">Choose Country</option></select>
                         </div>
                     </div>
                     <div class="col-12 col-md-6">
                         <div class="my-1 mx-1 my-md-0 px-2 bg-white round-corners formFieldShadow">
                             <label class="d-block">City</label>
-                            <select class="form-select form-control text-center fw-bold"><option>Choose City</option></select>
+                            <select id="toCities" asp-for="searchObj.TourHeader.DestinationCities" class="form-select form-control text-center fw-bold"><option value="">Choose City</option></select>
                         </div>
                     </div>
                 </div>
@@ -52,21 +57,70 @@
                     <div class="col-12 col-md-6">
                         <div class="my-1 mx-1 my-md-0 px-2 bg-white round-corners formFieldShadow">
                             <label class="d-block">Departure</label>
-                            <input type="date" class="form-control text-center fw-bold" />
+                            <input asp-for="searchObj.TourHeader.StartDate" type="date" class="form-control text-center fw-bold" />
                         </div>
                     </div>
                     <div class="col-12 col-md-6">
                         <div class="my-1 mx-1 my-md-0 px-2 bg-white round-corners formFieldShadow">
-                            <label class="d-block">Arrival</label>
-                            <input type="date" class="form-control text-center fw-bold" />
+                            <label class="d-block">Return</label>
+                            <input asp-for="searchObj.TourHeader.EndDate" type="date" class="form-control text-center fw-bold" />
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row col-12 col-md-6 offset-md-6 pt-0 px-4 ">
-                <button type="submit" class="btn btn-success round-corners formFieldShadow"><h4 class="fw-bold">Search</h4></button>
+            <div class="row col-12">
+                <div class="col-12 row d-flex d-block m-3 mt-0 py-1 px-2">
+                    <button type="submit" class="btn btn-success mx-auto col-12 round-corners formFieldShadow"><h4 class="fw-bold">Search</h4></button>
+                </div>
             </div>
 
-            </div>
         </div>
-</form>
+    </form>
+    <div id="resultBox m-0 p-0">
+        @if (Model.searchObj.TourHeaders != null && Model.searchObj.TourHeaders.Count() > 0)
+        {
+            foreach (var tour in Model.searchObj.TourHeaders)
+            {
+
+                <div class="mb-2">
+                    <div class="d-flex flex-column justify-content-between align-items-center">
+                        <div class="shadowFrame bg-light-green searchResult mb-2 p-2">
+                            <div class="row col-12">
+                                <div class="col-12 col-md-6 ">
+                                    <h3 class="text-green green_division fw-bold p-2 mb-4">@tour.TourTitle</h3>
+                                    <p class="text-justify overflow-auto px-3">@tour.Description</p>
+                                </div>
+                                <div class="col-12 col-md-3 d-flex flex-column justify-content-evenly align-items-center align-items-md-end pb-0 pt-5">
+                                    <div class="d-flex flex-column justify-content-start align-items-center align-items-md-end">
+                                        <small class="fw-bold">@tour.OriginCountry to @tour.DestinationCountries</small>
+                                        <small class="fw-bold">@tour.OriginCity to @tour.DestinationCities</small>
+                                        <small class="fw-bold">@tour.StartDate.ToString("dd MMM yyyy") to @tour.EndDate.ToString("dd MMM yyyy")</small>
+                                        @if (tour.TourDetails != null && tour.TourDetails.Count() > 0)
+                                        {
+                                            <small class="fw-bold">@tour.TourDetails?.First().Accommodation.Name</small>
+                                        }
+                                        <small class="fw-bold">Capacity <b class="text-green">10</b></small>
+                                    </div>
+                                    <div class="container-fluid p-0 d-flex flex-column mx-auto justify-content-end">
+                                        <a class="text-green fw-bold text-center d-block" href="#"> Click to See Tour Plan</a>
+                                        <a class="btn col-12 takeTourBtn shadowFrame round-corners d-block" style="line-height:">
+                                            <h6 class="text-center fw-bold text-white">Take this Tour</h6>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-3 d-flex flex-column justify-content-center align-items-end" style="min-height:200px;">
+                                    <img src="~/images/Italy.jpg" class="img-thumbnail round-corners mx-auto shadowFrame" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+</div>
+
+@section scripts{
+    <script src="~/js/SearchPage.js"></script>
+}
