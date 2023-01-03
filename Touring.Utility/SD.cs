@@ -23,5 +23,24 @@ namespace Touring.Utility
         public const string TourStatusCancelled = "Tour Cancelled";
         public const string TourStatusAfoot = "Tour is going On";
         public const string TourStatusCompleted = "Tour Completed";
+
+        public const string VisaStatusNotRequired = "Visa not required";
+        public const string VisaStatusRequired = "Visa required";
+        public const string VisaStatusApproved = "Visa Aproved";
+        public const string VisaStatusRejected = "Visa Rejected";
+        public const string VisaStatusWillExpire = "Visa Will Expire";
+
+        public const string PassportStatusValid = "Passport Valid";
+        public const string PassportStatusExpired = "Passport Expired";
+        public const string PassportStatus = "Passport Expired";
+        public const string PassportStatusWillExpire = "Passport Will Expire";
+
+        public const string BookingStatusPending = "Booking Pending";
+        public const string BookingStatusBooked = "Booking Complete";
+        public const string BookingStatusDocumentsMissing = "Documents needed";
+        public const string BookingStatusPaymentIssue = "Payment no Complete";
+
+
+
     }
 }

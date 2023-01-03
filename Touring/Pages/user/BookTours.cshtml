@@ -1,0 +1,77 @@
+﻿@page
+@model Touring.Pages.user.BookToursModel
+
+
+<div class="container my-3">
+
+    <div class="p-3 bg-light-green shadowFrame mb-3">
+        <div class="d-block green_division">
+            <h2 class="text-center text-capitalize text-green ">Enter Passenger Information</h2>
+        </div>
+        <div class="row pt-3">
+            <div class="col-12 col-md-8">
+                <div class="d-flex flex-column mx-auto justify-content-between align-content-center mt-2">
+
+                    <div class="row col-12 pt-0 ">
+                        <h5 class="mx-5 fw-bold col-12">Number of passengers</h5>
+                        <div class="col-12 row d-flex justify-content-between d-block m-3 mt-0 py-1 round-corners">
+                            <div class="col-12 col-md-6">
+                                <div class="my-1 mx-1 my-md-0 px-2 bg-white round-corners formFieldShadow">
+                                    <label for="PassengerNum" class="d-block">Choose a Number</label>
+                                    <select id="PassengerNum" asp-for="TourHeader.OriginCountry" class="form-select form-control text-center fw-bold"><option value="">Choose a Number</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <form method="post">
+
+                        <div id="passengers" class="p-0 m-0 container-fluid"></div>
+                        
+                        <div class="row col-12 pt-0 col-lg-6 offset-lg-6 mx-1">
+                            <button type="submit" class="btn btn-success mx-auto col-12 round-corners formFieldShadow"><h4 class="fw-bold">Submit</h4></button>
+                        </div>
+                    </form>
+
+
+                </div>
+
+
+
+            </div>
+            <div class=" col-12 col-md-4 ">
+                <div class="d-flex flex-column justify-content-start align-items-center">
+                    <div class="container-fluid">
+                        <h4 class="text-green green_division p-1 mb-1">Selected Tour</h4>
+                        <h5 class="text-green fw-bold p-1 pl-3 mb-2">@Model.TourHeader.TourTitle</h5>
+                    </div>
+                    <div class="container-fluid" style="min-height:200px;">
+                        <img src="~/images/Italy.jpg" class="img-thumbnail round-corners mx-auto shadowFrame" />
+                    </div>
+                    <div class="container-fluid">
+                        <div class="d-flex flex-column justify-content-start align-items-center align-items-md-start">
+                            <small class="fw-bold">@Model.TourHeader.OriginCountry to @Model.TourHeader.DestinationCountries</small>
+                            <small class="fw-bold">@Model.TourHeader.OriginCity to @Model.TourHeader.DestinationCities</small>
+                            <small class="fw-bold">@Model.TourHeader.StartDate.ToString("dd MMM yyyy") to @Model.TourHeader.EndDate.ToString("dd MMM yyyy")</small>
+                            @if (Model.TourHeader.TourDetails != null && Model.TourHeader.TourDetails.Count() > 0)
+                            {
+                                <small class="fw-bold">@Model.TourHeader.TourDetails?.First().Accommodation.Name</small>
+                            }
+                            <small class="fw-bold">Capacity <b class="text-green">10</b></small>
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        <p class="text-justify overflow-auto px-0 pt-3">@Model.TourHeader.Description</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section scripts{
+    <script src="~/js/BookingPage.js"></script>
+
+}

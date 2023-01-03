@@ -24,7 +24,12 @@ namespace Touring.DataAccess
         {
 
         }
-
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.ApplyConfiguration(new PaymentsConfig());
+            builder.ApplyConfiguration(new TourBookConfig());
+        }
 
     }
 }
