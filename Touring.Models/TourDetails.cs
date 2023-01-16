@@ -46,7 +46,7 @@ namespace Touring.Models
         [ForeignKey("MealId")]
         public virtual Meal Meal { get; set; }
 
-        public double Price { get; set; }
+        public decimal Price { get; set; }
         public string Recommendations { get; set; }
     }
 }

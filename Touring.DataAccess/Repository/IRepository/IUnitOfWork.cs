@@ -15,6 +15,9 @@ namespace Touring.DataAccess.Repository.IRepository
         public IAccommodationRepository Accommodation { get; }
         public ITripRepository Trip { get; }
         public IMealRepository Meal { get; }
+        public IPassengerGroupsRepository PassengerGroups {get;}
+        public ITourBookRepository TourBook { get; }
+        public IDiscountsRepository Discount { get; }
         public void Save();
     }
 }

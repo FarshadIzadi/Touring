@@ -32,7 +32,7 @@ namespace Touring.DataAccess.Initializer
                     _db.Database.Migrate();
                 }
             }catch(Exception ex) {
-            
+                
             }
 
             if (_roleManager.RoleExistsAsync(SD.RoleManager).GetAwaiter().GetResult()) return;

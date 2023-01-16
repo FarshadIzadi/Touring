@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Touring.Utility;
 
 namespace Touring.Models
 {
@@ -25,9 +26,9 @@ namespace Touring.Models
         [Range(1,1000,ErrorMessage = "Tour Capacity Out of Range")]
         public int TourCapacity { get; set; }
         public string BookingStatus { get; set; }
-        public double CalculatedCosts { get; set; }  // the sum of all activities trips and accommodation
-        public double ExtraCosts { get; set; }       // expenses payed by agency for each person like visa expenses
-        public double BenefitPerPerson { get; set; } //desired profit for the agency for each tourist
+        public decimal CalculatedCosts { get; set; }  // the sum of all activities trips and accommodation
+        public decimal ExtraCosts { get; set; }       // expenses payed by agency for each person like visa expenses
+        public decimal BenefitPerPerson { get; set; } //desired profit for the agency for each tourist
         public string Description { get; set; }
         
 
@@ -61,9 +62,12 @@ namespace Touring.Models
 
         [Display(Name = "Booking Allowed")]
         public bool BookingAllowed { get; set; }
-
+        public string VisaRequirement { get; set; }
+        public string PassportRequirement { get; set; }
         public TourHeader()
         {
+            VisaRequirement = SD.VisaStatusRequired;
+            PassportRequirement = SD.PassportStatusRequired;
             TourCapacity = 10;
             BookingAllowed = true;
         }

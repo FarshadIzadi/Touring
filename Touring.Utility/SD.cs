@@ -30,10 +30,11 @@ namespace Touring.Utility
         public const string VisaStatusRejected = "Visa Rejected";
         public const string VisaStatusWillExpire = "Visa Will Expire";
 
+        public const string PassportStatusRequired = "Passport Required";
+        public const string PassportStatusNotRequired = "Passport Not Required";
         public const string PassportStatusValid = "Passport Valid";
+        public const string PassportStatusRenewal = "Passport Valid But Needs Renewal";
         public const string PassportStatusExpired = "Passport Expired";
-        public const string PassportStatus = "Passport Expired";
-        public const string PassportStatusWillExpire = "Passport Will Expire";
 
         public const string BookingStatusPending = "Booking Pending";
         public const string BookingStatusBooked = "Booking Complete";

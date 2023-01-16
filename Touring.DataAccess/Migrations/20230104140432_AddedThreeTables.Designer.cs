@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Touring.DataAccess;
 
 namespace Touring.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230104140432_AddedThreeTables")]
+    partial class AddedThreeTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -315,38 +317,6 @@ namespace Touring.DataAccess.Migrations
                     b.ToTable("AspNetUserRoles");
                 });
 
-            modelBuilder.Entity("Touring.Models.Discounts", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<decimal?>("DiscountAmount")
-                        .HasColumnType("decimal(10,2)");
-
-                    b.Property<string>("DiscountCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("DiscountPercentage")
-                        .HasColumnType("int");
-
-                    b.Property<string>("DiscountTitle")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ValidFrom")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ValidUntill")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Discounts");
-                });
-
             modelBuilder.Entity("Touring.Models.Meal", b =>
                 {
                     b.Property<int>("Id")
@@ -449,7 +419,7 @@ namespace Touring.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("DiscountId")
+                    b.Property<int>("Discount")
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
@@ -461,17 +431,15 @@ namespace Touring.DataAccess.Migrations
                     b.Property<int>("TourHeaderId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("TourId")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<decimal>("discountAmmount")
-                        .HasColumnType("decimal(10,2)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("DiscountId");
-
-                    b.HasIndex("TourHeaderId");
+                    b.HasIndex("TourId");
 
                     b.HasIndex("UserId");
 
@@ -497,8 +465,8 @@ namespace Touring.DataAccess.Migrations
                     b.Property<int?>("MealId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(10,2)");
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
 
                     b.Property<string>("Recommendations")
                         .HasColumnType("nvarchar(max)");
@@ -542,8 +510,8 @@ namespace Touring.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal>("BenefitPerPerson")
-                        .HasColumnType("decimal(10,2)");
+                    b.Property<double>("BenefitPerPerson")
+                        .HasColumnType("float");
 
                     b.Property<bool>("BookingAllowed")
                         .HasColumnType("bit");
@@ -557,8 +525,8 @@ namespace Touring.DataAccess.Migrations
                     b.Property<string>("BookingStatus")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("CalculatedCosts")
-                        .HasColumnType("decimal(10,2)");
+                    b.Property<double>("CalculatedCosts")
+                        .HasColumnType("float");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -574,8 +542,8 @@ namespace Touring.DataAccess.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("ExtraCosts")
-                        .HasColumnType("decimal(10,2)");
+                    b.Property<double>("ExtraCosts")
+                        .HasColumnType("float");
 
                     b.Property<string>("ManagerId")
                         .HasColumnType("nvarchar(450)");
@@ -712,7 +680,7 @@ namespace Touring.DataAccess.Migrations
 
             modelBuilder.Entity("Touring.Models.PassengerGroups", b =>
                 {
-                    b.HasOne("Touring.Models.TourBook", "TourBook")
+                    b.HasOne("Touring.Models.TourHeader", "TourBook")
                         .WithMany()
                         .HasForeignKey("TourBookId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -744,23 +712,15 @@ namespace Touring.DataAccess.Migrations
 
             modelBuilder.Entity("Touring.Models.TourBook", b =>
                 {
-                    b.HasOne("Touring.Models.Discounts", "Discounts")
-                        .WithMany()
-                        .HasForeignKey("DiscountId");
-
                     b.HasOne("Touring.Models.TourHeader", "TourHeader")
                         .WithMany()
-                        .HasForeignKey("TourHeaderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TourId");
 
                     b.HasOne("Touring.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId");
 
                     b.Navigation("ApplicationUser");
-
-                    b.Navigation("Discounts");
 
                     b.Navigation("TourHeader");
                 });

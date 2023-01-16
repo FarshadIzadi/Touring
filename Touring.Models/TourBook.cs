@@ -13,25 +13,25 @@ namespace Touring.Models
         public int Id { get; set; }
 
         public int TourHeaderId { get; set; }
-        [ForeignKey("TourId")]
-        public TourHeader TourHeader { get; set; }
+        [ForeignKey("TourHeaderId")]
+        public virtual TourHeader TourHeader { get; set; }
 
         public string UserId { get; set; }
         [ForeignKey("UserId")]
-        public ApplicationUser ApplicationUser { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
 
         public decimal TotalPrice { get; set; }
-        [Range(0,100,ErrorMessage = "Discount must be between 0% to 100%")]
-        public int Discount { get; set; }
+        public decimal discountAmmount { get; set; }
+        public int? DiscountId { get; set; }
+        [ForeignKey("DiscountId")]
+        public virtual Discounts Discounts { get; set; }
+
         [NotMapped]
         public virtual ICollection<Payments> Payments { get; set; }
+        [NotMapped]
+        public virtual ICollection<PassengerGroups> PassengerGroups { get; set; }
 
         public string Status { get; set; }
-
-        public TourBook()
-        {
-            Discount = 0;
-        }
 
     
     }

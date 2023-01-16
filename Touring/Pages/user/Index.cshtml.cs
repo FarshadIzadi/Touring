@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -29,6 +30,9 @@ namespace Touring.Pages.user
 
         public void OnGet()
         {
+
+
+
             IEnumerable<SelectListItem> oCountries = _unitOfWork.TourHeader.GetAll(x => x.BookingStatus == SD.TourStatusBooking).Select(s => new SelectListItem { 
                 Text = s.OriginCountry,
                 Value = s.OriginCountry

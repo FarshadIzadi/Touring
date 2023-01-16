@@ -19,6 +19,10 @@ namespace Touring.DataAccess
         public DbSet<Trip> Trip { get; set; }
         public DbSet<TourHeader> TourHeader { get; set; }
         public DbSet<TourDetails> TourDetails { get; set; }
+        public DbSet<TourBook> TourBook { get; set; }
+        public DbSet<PassengerGroups> PassengerGroups { get; set; }
+        public DbSet<Payments> Payments { get; set; }
+        public DbSet<Discounts> Discounts { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -29,6 +33,9 @@ namespace Touring.DataAccess
             base.OnModelCreating(builder);
             builder.ApplyConfiguration(new PaymentsConfig());
             builder.ApplyConfiguration(new TourBookConfig());
+            builder.ApplyConfiguration(new DiscountConfig());
+            builder.ApplyConfiguration(new TourHeaderConfig());
+            builder.ApplyConfiguration(new TourDetailsConfig());
         }
 
     }

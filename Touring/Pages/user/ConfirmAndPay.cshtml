@@ -1,0 +1,202 @@
+﻿@page
+@model Touring.Pages.user.ConfirmAndPayModel
+
+
+
+<div class="container my-3">
+
+    <div class="p-3 bg-light-green shadowFrame mb-3">
+        <div class="row pt-3">
+            <div class="col-12 col-md-8">
+                <div class="d-block green_division">
+                    <h2 class="text-capitalize text-green fw-bold">Confirm Booking and Pay</h2>
+                </div>
+                <div class="d-flex flex-column mx-auto justify-content-between align-content-center mt-2">
+
+
+
+                    @if (Model.Passengers != null && Model.Passengers.Count() > 0)
+                    {
+
+                        @*<input id="passengerCount" name="passengerCount" type="hidden" value="@Model.Passengers.Count()" />*@
+                        <input type="hidden" asp-for="bookedTour.Id" />
+                        <div id="passengers" class="px-3 m-0 container-fluid">
+                            <div id="formContainer">
+                                @{ int index = 0;}
+                                @foreach (var Passenger in Model.Passengers)
+                                {
+                                    index++;
+
+                                    @*<input name="passengerGroupId" type="hidden" value="@Passenger.Id" />*@
+                                    <h5 class="mx-5 fw-bold col-12 passengerBox pt-3">Passenger @index</h5>
+                                    <fieldset class="py-3 mx-3 mx-auto formFieldShadow round-corners bg-white">
+                                        <div class="row col-12 pt-0 px-3 xm-auto">
+                                            <div class="col-md-6 d-flex flex-column">
+                                                <div class="clearfix">
+                                                    <span class="float-start">First Name:</span>
+                                                    <span class="float-end">@Passenger.FristName</span>
+                                                </div>
+                                                <div class="clearfix">
+                                                    <span class="float-start">Genger:</span>
+                                                    <span class="float-end">@Passenger.Gender</span>
+                                                </div>
+                                                <div class="clearfix">
+                                                    <span class="float-start">Passport Exp:</span>
+                                                    <span class="float-end">@Passenger.PassportExpDate.ToShortDateString()</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 d-flex flex-column">
+                                                <div class="clearfix">
+                                                    <span class="float-start">Last Name:</span>
+                                                    <span class="float-end">@Passenger.LastName</span>
+                                                </div>
+                                                <div class="clearfix">
+                                                    <span class="float-start">Age:</span>
+                                                    <span class="float-end">@Passenger.Age</span>
+                                                </div>
+                                                <div class="clearfix">
+                                                    <span class="float-start">vaccine Status:</span>
+                                                    <span class="float-end">@Passenger.Vaccinetatus</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                }
+
+                                <h5 class="mx-5 fw-bold col-12 passengerBox pt-3">Expenses</h5>
+                                <fieldset class="py-3 mx-3 mx-auto formFieldShadow round-corners bg-white">
+                                    <div class="row col-12 pt-0 px-3 mx-auto">
+                                        <table class="table table-hover table-responsive table-striped table-borderless">
+                                            <thead>
+                                                <tr class="border-bottom">
+                                                    <th></th>
+                                                    <th>Title</th>
+                                                    <th>Price</th>
+                                                    <th>Count</th>
+                                                    <th>total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (Model.tourDetails != null && Model.tourDetails.Count() > 0)
+                                                {
+                                                    foreach (var detail in Model.tourDetails)
+                                                    {
+                                                        <tr>
+                                                            <td class="text-danger">+</td>
+                                                            <td>@detail.Title</td>
+                                                            <td>@detail.Price.ToString("C")</td>
+                                                            <td>@Model.Passengers.Count()</td>
+                                                            <td>@((detail.Price * Model.Passengers.Count()).ToString("C"))</td>
+                                                        </tr>
+                                                    }
+                                                }
+
+                                                <tr>
+                                                    <td class="text-danger">+</td>
+                                                    <td>Extra Expenses</td>
+                                                    <td>@((Model.TourHeader.ExtraCosts + Model.TourHeader.BenefitPerPerson).ToString("C"))</td>
+                                                    <td>@Model.Passengers.Count()</td>
+                                                    <td>@(((Model.TourHeader.ExtraCosts + +Model.TourHeader.BenefitPerPerson) * Model.Passengers.Count()).ToString("C"))</td>
+                                                </tr>
+
+                                                <tr class="bg-warning">
+                                                    <td class="text-danger"></td>
+                                                    <td class="fw-bold h5">Total</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td class="fw-bold h5">@Model.bookedTour.TotalPrice.ToString("C")</td>
+                                                </tr>
+                                                @{ var discountId = Model.bookedTour.DiscountId;}
+                                                @if ((discountId ?? 0) > 0)
+                                                {
+                                                    <tr class="bg-success">
+                                                        <td class="text-white">-</td>
+                                                        <td colspan="3" class="fw-bold h5">Discount</td>
+                                                        <td class="fw-bold h5">@Model.bookedTour.discountAmmount </td>
+                                                    </tr>
+                                                }
+                                                else
+                                                {
+
+
+                                                    <tr class="bg-success">
+                                                        <td class="text-white">-</td>
+                                                        <td colspan="3" class="fw-bold h5">
+                                                            <form method="post">
+                                                                <div class="input-group rounded" style="border-radius:5px;">
+                                                                    <input hidden name="bookingId" value="@Model.bookedTour.Id" />
+                                                                    <input name="discountCode" id="discountCode" type="text" placeholder="Enter Discount Code" class="input-lg bg-white round-corners formFieldShadow" />
+                                                                    <button type="submit" class="btn btn-info fw-bold round-corners" asp-page-handler="ApplyDiscount"><span class="shadow">Apply</span></button>
+                                                                </div>
+                                                            </form>
+                                                        </td>
+                                                        <td class="fw-bold h5">$00.00</td>
+                                                    </tr>
+                                                }
+                                                <tr class="table-dark d-lg-table-row">
+                                                    <td></td>
+                                                    <td class="fw-bold h4">Final Payable</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td class="fw-bold  h4">@((Model.bookedTour.TotalPrice - Model.bookedTour.discountAmmount).ToString("C"))</td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+
+                    }
+                    <input type="hidden" asp-for="TourId" />
+
+
+                    <div class="row col-12 pt-3">
+                        <div class="col-12 row d-flex justify-content-between d-block m-3 mt-0 py-1 round-corners">
+                            <div class="col-12 col-lg-6">
+                                <div class="my-1 mx-1 bg-white round-corners formFieldShadow">
+                                    <button id="addPassenger" type="button" class="btn btn-primary mx-auto col-12 round-corners formFieldShadow"><h4 class="fw-bold"><i class="bi bi-arrow-return-left"></i> Back</h4></button>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="my-1 mx-1 bg-white round-corners formFieldShadow">
+                                    <button type="submit" class="btn btn-success mx-auto col-12 round-corners formFieldShadow"><h4 class="fw-bold"><i class="bi bi-credit-card"></i> Confirm And Pay</h4></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class=" col-12 col-md-4 ">
+                <div class="d-block green_division">
+                    <h2 class="pl-3 text-capitalize text-green fw-bold">selected tour</h2>
+                </div>
+                <div class="d-flex flex-column  justify-content-start align-items-center">
+                    <h5 class="text-green fw-bold p-1 pl-3 mb-2">@Model.TourHeader.TourTitle</h5>
+                    <div class="container-fluid" style="min-height:200px;">
+                        <img src="~/images/Italy.jpg" class="img-thumbnail round-corners mx-auto shadowFrame" />
+                    </div>
+                    <div class="container-fluid">
+                        <div class="d-flex flex-column justify-content-start align-items-center align-items-md-start">
+                            <small class="fw-bold">@Model.TourHeader.OriginCountry to @Model.TourHeader.DestinationCountries</small>
+                            <small class="fw-bold">@Model.TourHeader.OriginCity to @Model.TourHeader.DestinationCities</small>
+                            <small class="fw-bold">@Model.TourHeader.StartDate.ToString("dd MMM yyyy") to @Model.TourHeader.EndDate.ToString("dd MMM yyyy")</small>
+                            @if (Model.TourHeader.TourDetails != null && Model.TourHeader.TourDetails.Count() > 0)
+                            {
+                                <small class="fw-bold">@Model.TourHeader.TourDetails?.First().Accommodation.Name</small>
+                            }
+                            <small class="fw-bold">Capacity <b class="text-green">10</b></small>
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        <p class="text-justify overflow-auto px-0 pt-3">@Model.TourHeader.Description</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
