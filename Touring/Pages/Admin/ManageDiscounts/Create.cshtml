@@ -1,0 +1,161 @@
+﻿@page
+@model Touring.Pages.Admin.ManageDiscounts.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<div class="row p-3">
+    <div class="offset-md-2 p-3 col-md-8  bg-light-green round-corners">
+        <h2 class="text-green green_division text-center">Create Discount</h2>
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            @if (Model.discountData != null)
+            {
+                <input type="hidden" asp-for="discountData.Id" />
+            }
+
+            @if (Model.Errors != null && Model.Errors.Count > 0)
+            {
+                foreach (var error in Model.Errors)
+                {
+                    <small class="text-danger d-block">@error</small>
+                }
+            }
+
+            <div class="form-group">
+                <label asp-for="discountData.DiscountTitle" class="control-label"></label>
+                <input asp-for="discountData.DiscountTitle" class="form-control" />
+                <span asp-validation-for="discountData.DiscountTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3">
+                <label asp-for="discountData.DiscountCode" class="control-label"></label>
+                <input asp-for="discountData.DiscountCode" class="form-control" />
+                <span asp-validation-for="discountData.DiscountCode" class="text-danger"></span>
+            </div>
+            <div class="row mt-3">
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="discountData.ValidFrom" class="control-label"></label>
+                        <input type="date" asp-for="discountData.ValidFrom" class="form-control" />
+                        <span asp-validation-for="discountData.ValidFrom" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="discountData.ValidUntill" class="control-label"></label>
+                        <input type="date" asp-for="discountData.ValidUntill" class="form-control" />
+                        <span asp-validation-for="discountData.ValidUntill" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="discountData.DiscountPercentage" class="control-label"></label>
+                        <input id="percent" asp-for="discountData.DiscountPercentage" class="form-control" />
+                        <span asp-validation-for="discountData.DiscountPercentage" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="discountData.DiscountAmount" class="control-label"></label>
+                        <input id="amount" asp-for="discountData.DiscountAmount" class="form-control" />
+                        <span asp-validation-for="discountData.DiscountAmount" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <h4 class="green_division text-center mt-3 pb-2">Apply To All Users Who:</h4>
+            <div class="row mt-3">
+                <div class="col">
+                    <div class="form-group">
+                        <label class="control-label">Joined After</label>
+                        <input name="joinedAfter" type="date" class="form-control" />
+                        <span class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label class="control-label">Joined Before</label>
+                        <input name="joinedBefore" type="date" class="form-control" />
+                        <span class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col">
+                    <div class="form-group">
+                        <label class="control-label">With Payments More Than</label>
+                        <input name="moreThan" class="form-control" />
+                        <span class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label class="control-label">With Payments Less Than</label>
+                        <input name="lessThan" class="form-control" />
+                        <span class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col">
+                    <div class="form-group">
+                        <label class="control-label">Taken at least x Tours</label>
+                        <input name="toursTaken" class="form-control" />
+                        <span class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <label>or</label>
+                    <div class="mx-auto form-check mt-1 bg-white">
+                        <input asp-for="allUsers" id="allUsers" type="checkbox" class="form-check-input" />
+                        <lable class="form-check-label" for="allUsers">All Users</lable>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">
+                        <a asp-page="Index" class="btn btn-info form-control mt-3 fw-bold round-corners">Back to List</a>
+                    </div>
+                    <div class="col">
+                        @if (Model.discountData != null)
+                        {
+                            <input type="submit" value="Save Changes" class="btn btn-success fw-bold form-control mt-3 round-corners" />
+                        }
+                        else
+                        {
+                            <input type="submit" value="Create" class="btn btn-success fw-bold form-control mt-3 round-corners" />
+                        }
+                    </div>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+            //$(document).ready(function () {
+            //    $("#percent").on('change', function () {
+            //        alert("I'm changing. no jokes")
+            //        if (this.val() != "") {
+            //            $("#amount").prop('disabled', true);
+            //        } else {
+            //            $("#amount").prop('disabled', true);
+            //        }
+            //    });
+
+            //});
+    </script>
+}

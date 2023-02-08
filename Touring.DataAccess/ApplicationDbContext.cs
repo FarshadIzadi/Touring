@@ -23,6 +23,7 @@ namespace Touring.DataAccess
         public DbSet<PassengerGroups> PassengerGroups { get; set; }
         public DbSet<Payments> Payments { get; set; }
         public DbSet<Discounts> Discounts { get; set; }
+        public DbSet<DiscountAssignment> DiscountAssignment { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {

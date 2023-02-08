@@ -10,13 +10,17 @@ using Touring.Models;
 
 namespace Touring.DataAccess.Repository
 {
-    public class DiscountsRepository : Repository<Discounts>, IDiscountsRepository
+    public class DiscountAssignmentRepository : Repository<DiscountAssignment>, IDiscountAssignmentRepository
     {
         private readonly ApplicationDbContext _context;
-        public DiscountsRepository(ApplicationDbContext context) : base(context)
+        public DiscountAssignmentRepository(ApplicationDbContext context) : base(context)
         {
             _context = context;
         }
 
+        public IEnumerable<DiscountAssignment> getUsersWithDiscount(int discountId)
+        {
+            return _context.DiscountAssignment.Include(x => x.ApplicationUser).Where(x => x.DiscountId == discountId);
+        }
     }
 }

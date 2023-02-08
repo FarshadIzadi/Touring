@@ -18,6 +18,8 @@ namespace Touring.DataAccess.Repository.IRepository
         public IPassengerGroupsRepository PassengerGroups {get;}
         public ITourBookRepository TourBook { get; }
         public IDiscountsRepository Discount { get; }
+        public IDiscountAssignmentRepository DiscountAssignment { get; }
+        public IPaymentsRepository Payments { get; }
         public void Save();
     }
 }

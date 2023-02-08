@@ -24,6 +24,8 @@ namespace Touring.DataAccess.Repository
             PassengerGroups = new PassengerGroupsRepository(_context);
             TourBook = new TourBookRepository(_context);
             Discount = new DiscountsRepository(_context);
+            DiscountAssignment = new DiscountAssignmentRepository(_context);
+            Payments = new PaymentsRepository(_context);
         }
 
         public IApplicationUserRepository ApplicationUser { get; private set; }
@@ -36,6 +38,8 @@ namespace Touring.DataAccess.Repository
         public IPassengerGroupsRepository PassengerGroups { get; private set; }
         public ITourBookRepository TourBook { get; private set; }
         public IDiscountsRepository Discount { get; private set; }
+        public IDiscountAssignmentRepository DiscountAssignment { get; private set; }
+        public IPaymentsRepository Payments { get; private set; }
         public void Dispose()
         {
             _context.Dispose();

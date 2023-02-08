@@ -10,13 +10,14 @@ using Touring.Models;
 
 namespace Touring.DataAccess.Repository
 {
-    public class DiscountsRepository : Repository<Discounts>, IDiscountsRepository
+    public class PaymentsRepository : Repository<Payments>, IPaymentsRepository
     {
         private readonly ApplicationDbContext _context;
-        public DiscountsRepository(ApplicationDbContext context) : base(context)
+        public PaymentsRepository(ApplicationDbContext context) : base(context)
         {
             _context = context;
         }
+
 
     }
 }

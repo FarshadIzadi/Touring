@@ -1,0 +1,34 @@
+﻿@page
+@model Touring.Pages.Admin.ManageDiscounts.IndexModel
+
+@{
+    ViewData["Title"] = "Discounts List";
+}
+
+<div class="container row">
+    <div class="col-12 row">
+        <h2 class="col text-primary">Discounts List:</h2>
+        <div class="col text-end"><a class="btn btn-primary" asp-page="Create">New Discount</a></div>
+    </div>
+    <div class="col-12">
+        <table id="dataTable" class="text-center table-striped table-responsive table border mx-1 mx-auto">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Amount</th>
+                    <th>Percentage</th>
+                    <th>Starting Date</th>
+                    <th>Expiration Date</th>
+                    <th>Assigned to (users)</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/Discounts.js"></script>
+}

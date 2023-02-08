@@ -16,8 +16,11 @@ namespace Touring.Models
         public string UserId { get; set; }
         [ForeignKey("UserId")]
         public virtual ApplicationUser ApplicationUser { get; set; }
+        public string CustomerName { get; set; }
         public decimal MoneyIn { get; set; }
         public decimal MoneyOut { get; set; }
         public string Description { get; set; }
+        public string PaymentMethod { get; set; } //Cheque, stripe, localpayment, pos, etc...
+        public string TrackingCode { get; set; } 
     }
 }

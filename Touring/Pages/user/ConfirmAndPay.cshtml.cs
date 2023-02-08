@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Stripe;
 using Touring.DataAccess.Repository.IRepository;
 using Touring.Models;
 using Touring.Utility;
@@ -53,8 +54,6 @@ namespace Touring.Pages.user
                     bookedTour.TotalPrice = bookedTour.TotalPrice + (decimal)(tourDetail.Price * Passengers.Count());
                 }
                 bookedTour.TotalPrice += TourHeader.ExtraCosts * Passengers.Count();
-
-
             }
             else
             {
@@ -63,9 +62,52 @@ namespace Touring.Pages.user
         }
 
 
-        public IActionResult OnPost()
+        public IActionResult OnPost(string stripeToken)
         {
-            return Page();
+            var bookedTourFromDb = _unitOfWork.TourBook.GetFirstOrDefault(x => x.Id == bookedTour.Id);
+
+            ClaimsIdentity claimsIdentity = (ClaimsIdentity)this.User.Identity;
+            var claimId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            ApplicationUser user = _unitOfWork.ApplicationUser.GetFirstOrDefault(x => x.Id == claimId);
+
+            var chargeOptions = new ChargeCreateOptions
+            {
+                Amount = Convert.ToInt32((bookedTourFromDb.TotalPrice - bookedTourFromDb.discountAmmount) * 100),
+                Description = "Payment for tour Booking number: " + bookedTourFromDb.Id + " by " + user.FullName,
+                Currency = "usd",
+                Source = stripeToken
+            };
+
+            var service = new ChargeService();
+            Charge charge = service.Create(chargeOptions);
+
+            if(charge.Status.ToLower() == "succeeded")
+            {
+                bookedTourFromDb.Status = SD.TourStatusCompleted;
+                var payment = new Payments
+                {
+                    UserId = claimId,
+                    CustomerName = user.FullName,
+                    Description = "Payment for tour Booking number: " + bookedTourFromDb.Id + " by " + user.FullName,
+                    MoneyIn = (bookedTourFromDb.TotalPrice - bookedTourFromDb.discountAmmount),
+                    PaymentMethod = SD.PaymentMethodStripe,
+                    TourBookId = bookedTourFromDb.Id,
+                    TrackingCode = charge.Id,
+                    
+                };
+                _unitOfWork.Payments.Add(payment);
+                _unitOfWork.Save();
+            return RedirectToPage("paymentSucceeded");//success page
+
+            }
+            else
+            {
+                bookedTourFromDb.Status = SD.BookingStatusPaymentPending;
+                _unitOfWork.Save();
+            return RedirectToPage("paymentRejected");//rejection Page
+            }
+
         }
 
         public IActionResult OnPostApplyDiscount(discountModel discount)

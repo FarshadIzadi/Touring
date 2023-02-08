@@ -36,5 +36,8 @@ namespace Touring.Models
 
         [NotMapped]
         public ICollection<TourBook> TourBooks { get; set; }
+
+        [NotMapped]
+        public ICollection<ApplicationUser> ApplicationUsers { get; set; }
     }
 }

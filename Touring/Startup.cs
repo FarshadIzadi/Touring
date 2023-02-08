@@ -7,8 +7,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Stripe;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using Touring.DataAccess;
@@ -16,6 +18,7 @@ using Touring.DataAccess.Initializer;
 using Touring.DataAccess.Repository;
 using Touring.DataAccess.Repository.IRepository;
 using Touring.Models;
+using Touring.Utility;
 
 namespace Touring
 {
@@ -46,6 +49,8 @@ namespace Touring
                  })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+            services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
+
             services.AddScoped<IDbInitializer, DbInitializer>();
             services.AddMvc(options => { options.EnableEndpointRouting = false; })
                 .SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
@@ -77,6 +82,7 @@ namespace Touring
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseMvc();
+            StripeConfiguration.ApiKey = Configuration.GetSection("Stripe")["SecretKey"];
         }
     }
 }

@@ -39,7 +39,13 @@ namespace Touring.Utility
         public const string BookingStatusPending = "Booking Pending";
         public const string BookingStatusBooked = "Booking Complete";
         public const string BookingStatusDocumentsMissing = "Documents needed";
-        public const string BookingStatusPaymentIssue = "Payment no Complete";
+        public const string BookingStatusPaymentPending = "Payment pending";
+
+        public const string PaymentMethodStripe = "stripe";
+        public const string PaymentMethodCash = "cash";
+        public const string PaymentMethodLocal = "local";
+        public const string PaymentMethodPos = "pos";
+        public const string PaymentMethodCheque = "cheque";
 
 
 

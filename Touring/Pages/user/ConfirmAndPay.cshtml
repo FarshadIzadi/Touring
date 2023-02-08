@@ -1,6 +1,7 @@
 ﻿@page
 @model Touring.Pages.user.ConfirmAndPayModel
-
+@inject IOptions<Touring.Utility.StripeSettings> stripe
+@using Microsoft.Extensions.Options;
 
 
 <div class="container my-3">
@@ -19,7 +20,6 @@
                     {
 
                         @*<input id="passengerCount" name="passengerCount" type="hidden" value="@Model.Passengers.Count()" />*@
-                        <input type="hidden" asp-for="bookedTour.Id" />
                         <div id="passengers" class="px-3 m-0 container-fluid">
                             <div id="formContainer">
                                 @{ int index = 0;}
@@ -149,7 +149,6 @@
                         </div>
 
                     }
-                    <input type="hidden" asp-for="TourId" />
 
 
                     <div class="row col-12 pt-3">
@@ -160,9 +159,29 @@
                                 </div>
                             </div>
                             <div class="col-12 col-lg-6">
+                                <form method="post">
                                 <div class="my-1 mx-1 bg-white round-corners formFieldShadow">
+
+                                    @{ 
+                                        var stripePayable = (Model.bookedTour.TotalPrice - Model.bookedTour.discountAmmount) * 100;
+                                    }
+                                    <script src="https://checkout.stripe.com/checkout.js"
+                                            class="stripe-button"
+                                            data-key="@stripe.Value.PublishableKey"
+                                            data-amount="@stripePayable"
+                                            data-name="Touring Payment"
+                                            data-label="Pay And Book"
+                                            data-description="Make sure you have checked all items on the list before payment."
+                                            data-locale="auto"
+                                            data-allow-remember-me="false"
+                                            data-image="https://stripe.com/img/documentation/checkout/marketplace.png">
+                                    </script>                                    
+                                    <input type="hidden" asp-for="TourId" /> @*seems to be of no use!!!!*@
+                                    <input type="hidden" asp-for="bookedTour.Id" />
+                                    <script>document.getElementsByClassName("stripe-button-el")[0].style.display = 'none';</script>
                                     <button type="submit" class="btn btn-success mx-auto col-12 round-corners formFieldShadow"><h4 class="fw-bold"><i class="bi bi-credit-card"></i> Confirm And Pay</h4></button>
                                 </div>
+                                </form>
                             </div>
                         </div>
                     </div>

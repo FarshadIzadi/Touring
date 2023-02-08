@@ -90,12 +90,13 @@ namespace Touring.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var role = Request.Form["rbRole"];
-                var user = new ApplicationUser { 
-                    UserName = Input.Email, 
+                var user = new ApplicationUser {
+                    UserName = Input.Email,
                     Email = Input.Email,
-                PhoneNumber = Input.Phone,
-                FirstName = Input.FirstName,
-                LastName = Input.LastName
+                    PhoneNumber = Input.Phone,
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    JoinDate = DateTime.Now
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)

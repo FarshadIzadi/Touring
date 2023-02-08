@@ -1,2 +1,4 @@
+on confirm and pay check the discount post hadler to make sure all necessary changes will be made.
+
 when deleting a tour delete also tourdetails
 add recommendations to Accommodation CRUD 
